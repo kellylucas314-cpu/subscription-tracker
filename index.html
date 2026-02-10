@@ -362,14 +362,11 @@
             padding: 14px;
             box-shadow: var(--shadow);
             border: 1px solid var(--border);
-            min-height: 220px;
-            display: flex;
-            flex-direction: column;
         }
 
-        .chart-card canvas {
-            flex: 1;
-            min-height: 0;
+        .chart-wrapper {
+            position: relative;
+            height: 180px;
         }
 
         .chart-header {
@@ -1045,7 +1042,7 @@
                     </div>
                     <h2>Spending by Category</h2>
                 </div>
-                <canvas id="catChart"></canvas>
+                <div class="chart-wrapper"><canvas id="catChart"></canvas></div>
             </div>
             <div class="chart-card">
                 <div class="chart-header">
@@ -1054,7 +1051,7 @@
                     </div>
                     <h2>Top 5 Expenses</h2>
                 </div>
-                <canvas id="topChart"></canvas>
+                <div class="chart-wrapper"><canvas id="topChart"></canvas></div>
             </div>
             <div class="chart-card">
                 <div class="chart-header">
@@ -1063,7 +1060,7 @@
                     </div>
                     <h2>Due This Week</h2>
                 </div>
-                <canvas id="upcomingChart"></canvas>
+                <div class="chart-wrapper"><canvas id="upcomingChart"></canvas></div>
             </div>
             <div class="chart-card">
                 <div class="chart-header">
@@ -1072,7 +1069,7 @@
                     </div>
                     <h2>Category Totals</h2>
                 </div>
-                <canvas id="barChart"></canvas>
+                <div class="chart-wrapper"><canvas id="barChart"></canvas></div>
             </div>
         </div>
 
@@ -1377,9 +1374,9 @@
                 },
                 options:{
                     responsive:true,
-                    maintainAspectRatio:true,
+                    maintainAspectRatio:false,
                     plugins:{
-                        legend:{position:'bottom',labels:{color:'#4A5568',font:{size:11},padding:10,usePointStyle:true}}
+                        legend:{position:'bottom',labels:{color:'#4A5568',font:{size:10},padding:6,usePointStyle:true,boxWidth:8}}
                     }
                 }
             });
@@ -1389,21 +1386,21 @@
             topChart = new Chart(document.getElementById('topChart'),{
                 type:'bar',
                 data:{
-                    labels: top5.map(s => s.name.length > 15 ? s.name.substring(0,15)+'...' : s.name),
+                    labels: top5.map(s => s.name.length > 12 ? s.name.substring(0,12)+'..' : s.name),
                     datasets:[{
                         data: top5.map(s => s.price),
                         backgroundColor: ['#D97756','#B7791F','#553C9A','#2D5A7B','#2F855A'],
-                        borderRadius: 6
+                        borderRadius: 4
                     }]
                 },
                 options:{
                     indexAxis: 'y',
                     responsive:true,
-                    maintainAspectRatio:true,
+                    maintainAspectRatio:false,
                     plugins:{legend:{display:false}},
                     scales:{
-                        x:{grid:{display:false},ticks:{color:'#718096',font:{size:10},callback:v=>'$'+v}},
-                        y:{grid:{display:false},ticks:{color:'#1A202C',font:{size:11,weight:'500'}}}
+                        x:{grid:{display:false},ticks:{color:'#718096',font:{size:9},callback:v=>'$'+v}},
+                        y:{grid:{display:false},ticks:{color:'#1A202C',font:{size:10}}}
                     }
                 }
             });
@@ -1426,20 +1423,20 @@
                         label: 'Amount',
                         data: dueThisWeek.map(s => s.price),
                         backgroundColor: dueThisWeek.map(s => s.days <= 2 ? '#D97756' : s.days <= 4 ? '#B7791F' : '#2D5A7B'),
-                        borderRadius: 6
+                        borderRadius: 4
                     }]
                 },
                 options:{
                     indexAxis: 'y',
                     responsive:true,
-                    maintainAspectRatio:true,
+                    maintainAspectRatio:false,
                     plugins:{
                         legend:{display:false},
                         tooltip:{callbacks:{label:ctx=>'$'+ctx.raw+' due in '+dueThisWeek[ctx.dataIndex].days+' days'}}
                     },
                     scales:{
-                        x:{grid:{display:false},ticks:{color:'#718096',font:{size:10},callback:v=>'$'+v}},
-                        y:{grid:{display:false},ticks:{color:'#1A202C',font:{size:11}}}
+                        x:{grid:{display:false},ticks:{color:'#718096',font:{size:9},callback:v=>'$'+v}},
+                        y:{grid:{display:false},ticks:{color:'#1A202C',font:{size:10}}}
                     }
                 }
             });
@@ -1448,20 +1445,20 @@
             barChart = new Chart(document.getElementById('barChart'),{
                 type:'bar',
                 data:{
-                    labels: ['AI','Creative','Productivity','Google','Other'],
+                    labels: ['AI','Creative','Prod','Google','Other'],
                     datasets:[{
                         data: [st.cats.ai, st.cats.creative, st.cats.productivity, st.cats.google, st.cats.other],
                         backgroundColor: ['#553C9A','#D97756','#2D5A7B','#2F855A','#B7791F'],
-                        borderRadius: 6
+                        borderRadius: 4
                     }]
                 },
                 options:{
                     responsive:true,
-                    maintainAspectRatio:true,
+                    maintainAspectRatio:false,
                     plugins:{legend:{display:false}},
                     scales:{
-                        x:{grid:{display:false},ticks:{color:'#1A202C',font:{size:10}}},
-                        y:{grid:{color:'#E2E8F0'},ticks:{color:'#718096',font:{size:10},callback:v=>'$'+v}}
+                        x:{grid:{display:false},ticks:{color:'#1A202C',font:{size:9}}},
+                        y:{grid:{color:'#E2E8F0'},ticks:{color:'#718096',font:{size:9},callback:v=>'$'+v}}
                     }
                 }
             });
