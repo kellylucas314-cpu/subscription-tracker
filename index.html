@@ -36,7 +36,11 @@
             --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
         }
 
-        html, body { overflow-x: hidden; }
+        html, body { 
+            overflow-x: hidden; 
+            width: 100%;
+            max-width: 100%;
+        }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
@@ -48,7 +52,15 @@
             font-size: 14px;
         }
 
-        .container { max-width: 1200px; margin: 0 auto; }
+        .container { 
+            max-width: 100%; 
+            margin: 0 auto; 
+            overflow-x: hidden;
+        }
+
+        @media (min-width: 1200px) {
+            .container { max-width: 1100px; }
+        }
 
         /* Custom Icons */
         .icon-box {
@@ -334,9 +346,11 @@
             grid-template-columns: 1fr;
             gap: 12px;
             margin-bottom: 20px;
+            width: 100%;
+            max-width: 100%;
         }
 
-        @media (min-width: 500px) {
+        @media (min-width: 550px) {
             .charts-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -345,14 +359,18 @@
         .chart-card {
             background: var(--card);
             border-radius: 12px;
-            padding: 14px;
+            padding: 12px;
             box-shadow: var(--shadow);
             border: 1px solid var(--border);
+            overflow: hidden;
+            min-width: 0;
         }
 
         .chart-wrapper {
             position: relative;
-            height: 180px;
+            height: 160px;
+            width: 100%;
+            overflow: hidden;
         }
 
         .chart-header {
