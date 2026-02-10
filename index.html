@@ -332,14 +332,28 @@
         .charts-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 12px;
-            margin-bottom: 16px;
+            gap: 16px;
+            margin-bottom: 20px;
         }
 
-        @media (min-width: 600px) {
+        @media (min-width: 500px) {
             .charts-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+        }
+
+        @media (min-width: 900px) {
+            .charts-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .chart-card {
+            min-height: 200px;
+        }
+
+        .chart-card canvas {
+            max-height: 180px;
         }
 
         .chart-card {
@@ -348,6 +362,14 @@
             padding: 14px;
             box-shadow: var(--shadow);
             border: 1px solid var(--border);
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chart-card canvas {
+            flex: 1;
+            min-height: 0;
         }
 
         .chart-header {
@@ -804,23 +826,36 @@
             font-size: 0.75rem;
         }
 
-        /* Desktop */
-        @media (min-width: 768px) {
-            body { padding: 32px; }
-            h1 { font-size: 1.75rem; }
-            .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
-            .stat-card { padding: 18px; }
-            .icon-box { width: 48px; height: 48px; min-width: 48px; }
-            .icon-box svg { width: 24px; height: 24px; }
-            .stat-info .value { font-size: 1.5rem; }
-            .charts-row { gap: 16px; }
+        /* Tablet */
+        @media (min-width: 500px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .sub-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .sub-item { padding: 16px; }
-            .fab { width: 60px; height: 60px; border-radius: 16px; }
         }
 
-        @media (min-width: 1200px) {
+        /* Small Desktop */
+        @media (min-width: 768px) {
+            body { padding: 24px; }
+            h1 { font-size: 1.5rem; }
+            .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 12px; }
+            .stat-card { padding: 14px; }
+            .icon-box { width: 42px; height: 42px; min-width: 42px; }
+            .stat-info .value { font-size: 1.3rem; }
+            .sub-item { padding: 14px; }
+            .fab { width: 54px; height: 54px; border-radius: 14px; }
+        }
+
+        /* Desktop */
+        @media (min-width: 1000px) {
+            body { padding: 32px; }
+            .container { max-width: 1200px; }
             .sub-list { grid-template-columns: repeat(3, 1fr); }
+            .stat-info .value { font-size: 1.5rem; }
+        }
+
+        /* Large Desktop */
+        @media (min-width: 1400px) {
+            .container { max-width: 1400px; }
+            .sub-list { grid-template-columns: repeat(4, 1fr); }
         }
     </style>
 </head>
