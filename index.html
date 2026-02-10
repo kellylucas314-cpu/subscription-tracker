@@ -53,18 +53,22 @@
 
         /* Custom Icons */
         .icon-box {
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            min-height: 44px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            overflow: visible;
         }
 
         .icon-box svg {
-            width: 28px;
-            height: 28px;
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
         }
 
         .icon-box.coral { background: linear-gradient(135deg, #FDEEE4, #FCE0CF); }
@@ -89,17 +93,19 @@
         }
 
         .logo-icon {
-            width: 52px;
-            height: 52px;
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
             background: linear-gradient(135deg, var(--coral), var(--gold));
             border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             box-shadow: 0 4px 12px rgba(246,173,123,0.3);
+            overflow: visible;
         }
 
-        .logo-icon svg { width: 32px; height: 32px; }
+        .logo-icon svg { width: 28px; height: 28px; flex-shrink: 0; }
 
         h1 {
             font-size: 1.6rem;
@@ -153,32 +159,41 @@
         .stat-card {
             background: var(--card);
             border-radius: 16px;
-            padding: 16px;
+            padding: 12px;
             box-shadow: var(--shadow);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
+            overflow: visible;
+        }
+
+        .stat-info {
+            min-width: 0;
+            overflow: hidden;
         }
 
         .stat-info h3 {
             color: var(--text-light);
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
         .stat-info .value {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: var(--text);
         }
 
         .stat-info .change {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--teal);
             font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         /* Budget Card */
@@ -203,8 +218,8 @@
             gap: 10px;
         }
 
-        .budget-title .icon-box { width: 36px; height: 36px; }
-        .budget-title .icon-box svg { width: 20px; height: 20px; }
+        .budget-title .icon-box { width: 32px; height: 32px; min-width: 32px; }
+        .budget-title .icon-box svg { width: 18px; height: 18px; }
 
         .budget-title h2 {
             font-size: 1rem;
@@ -338,8 +353,8 @@
             margin-bottom: 12px;
         }
 
-        .chart-header .icon-box { width: 28px; height: 28px; border-radius: 8px; }
-        .chart-header .icon-box svg { width: 16px; height: 16px; }
+        .chart-header .icon-box { width: 26px; height: 26px; min-width: 26px; border-radius: 8px; overflow: visible; }
+        .chart-header .icon-box svg { width: 14px; height: 14px; }
 
         .chart-header h2 {
             font-size: 0.9rem;
@@ -466,16 +481,23 @@
         }
 
         .sub-icon {
-            width: 46px;
-            height: 46px;
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            min-height: 44px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            overflow: visible;
         }
 
-        .sub-icon svg { width: 26px; height: 26px; }
+        .sub-icon svg { 
+            width: 24px; 
+            height: 24px; 
+            flex-shrink: 0;
+        }
 
         .cat-ai { background: linear-gradient(135deg, #EDE9FE, #DDD6FE); }
         .cat-creative { background: linear-gradient(135deg, #FEF0F5, #FBCFE8); }
