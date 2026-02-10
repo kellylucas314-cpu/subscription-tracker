@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Subscription Tracker</title>
+    <title>Subscriptions</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * {
@@ -15,135 +14,119 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            background: #0f0f1a;
             min-height: 100vh;
             color: #fff;
-            padding: 16px;
-            padding-bottom: 100px;
+            padding: 12px;
+            padding-bottom: 90px;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 600px;
             margin: 0 auto;
         }
 
         header {
             text-align: center;
-            margin-bottom: 24px;
-            padding-top: 10px;
+            margin-bottom: 16px;
+            padding-top: 8px;
         }
 
         h1 {
-            font-size: 1.8rem;
-            background: linear-gradient(90deg, #e94560, #ff6b6b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 6px;
+            font-size: 1.5rem;
+            color: #e94560;
+            margin-bottom: 4px;
         }
 
         .subtitle {
-            color: #8892b0;
-            font-size: 0.9rem;
+            color: #666;
+            font-size: 0.8rem;
         }
 
-        /* Stats Cards - Horizontal Scroll on Mobile */
-        .stats-scroll {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            margin: 0 -16px 24px -16px;
-            padding: 0 16px;
-            scrollbar-width: none;
-        }
-
-        .stats-scroll::-webkit-scrollbar {
-            display: none;
-        }
-
+        /* Stats Grid */
         .stats-grid {
-            display: flex;
-            gap: 12px;
-            min-width: max-content;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
         }
 
         .stat-card {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 16px 20px;
-            min-width: 140px;
-            flex-shrink: 0;
+            background: #1a1a2e;
+            border-radius: 12px;
+            padding: 12px;
         }
 
         .stat-card h3 {
-            color: #8892b0;
-            font-size: 0.7rem;
+            color: #666;
+            font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .stat-card .value {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: #e94560;
         }
 
         .stat-card .change {
-            font-size: 0.7rem;
-            color: #64ffda;
-            margin-top: 4px;
+            font-size: 0.65rem;
+            color: #4ecdc4;
         }
 
-        .stat-card.savings .value {
-            color: #64ffda;
-        }
-
-        /* Budget Section */
+        /* Budget */
         .budget-section {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 20px;
+            background: #1a1a2e;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 16px;
         }
 
         .budget-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .budget-header h2 {
-            color: #ccd6f6;
-            font-size: 1rem;
+            color: #fff;
+            font-size: 0.9rem;
         }
 
         .budget-edit {
-            background: rgba(255,255,255,0.1);
+            background: #2a2a3e;
             border: none;
-            color: #8892b0;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 0.8rem;
+            color: #888;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
         }
 
         .progress-container {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            height: 28px;
+            background: #2a2a3e;
+            border-radius: 8px;
+            height: 24px;
             overflow: hidden;
             position: relative;
         }
 
         .progress-bar {
             height: 100%;
-            border-radius: 12px;
-            transition: width 0.5s ease;
-            background: linear-gradient(90deg, #64ffda, #4facfe);
+            border-radius: 8px;
+            background: linear-gradient(90deg, #4ecdc4, #44a08d);
+            transition: width 0.3s;
         }
 
-        .progress-bar.over-budget {
+        .progress-bar.over {
             background: linear-gradient(90deg, #e94560, #ff6b6b);
         }
 
@@ -153,213 +136,205 @@
             left: 50%;
             transform: translate(-50%, -50%);
             font-weight: 600;
-            font-size: 0.85rem;
-            color: #1a1a2e;
-        }
-
-        .budget-labels {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 8px;
             font-size: 0.75rem;
-            color: #8892b0;
+            color: #fff;
         }
 
-        /* Charts - Stack on Mobile */
-        .charts-section {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-
-        .chart-container {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 16px;
-        }
-
-        .chart-container h2 {
-            margin-bottom: 12px;
-            font-size: 1rem;
-            color: #ccd6f6;
-        }
-
-        /* To Cancel Section */
+        /* To Cancel */
         .to-cancel-section {
             background: rgba(255, 193, 7, 0.1);
             border: 1px solid rgba(255, 193, 7, 0.3);
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 20px;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 16px;
         }
 
         .to-cancel-section h2 {
             color: #ffc107;
-            margin-bottom: 12px;
-            font-size: 1rem;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
         }
 
         .to-cancel-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .to-cancel-item {
-            display: flex;
-            align-items: center;
             gap: 6px;
-            padding: 8px 12px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            font-size: 0.85rem;
         }
 
-        .to-cancel-item .price {
+        .to-cancel-chip {
+            background: rgba(0,0,0,0.3);
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .to-cancel-chip .price {
             color: #ffc107;
             font-weight: 600;
         }
 
         .savings-row {
             display: flex;
-            gap: 20px;
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid rgba(255, 193, 7, 0.2);
+            gap: 16px;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,193,7,0.2);
         }
 
-        .savings-stat .label {
-            color: #8892b0;
-            font-size: 0.7rem;
+        .savings-row .label {
+            font-size: 0.65rem;
+            color: #888;
         }
 
-        .savings-stat .value {
-            color: #64ffda;
-            font-size: 1.2rem;
+        .savings-row .value {
+            font-size: 1rem;
             font-weight: 700;
+            color: #4ecdc4;
         }
 
-        /* Subscriptions Section */
-        .subscriptions-section {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 20px;
-        }
-
-        .section-header {
+        /* Charts */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
             margin-bottom: 16px;
         }
 
-        .section-header h2 {
-            font-size: 1rem;
-            color: #ccd6f6;
+        .chart-box {
+            background: #1a1a2e;
+            border-radius: 12px;
+            padding: 10px;
+        }
+
+        .chart-box h2 {
+            font-size: 0.75rem;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .chart-box canvas {
+            max-height: 120px;
+        }
+
+        /* Subscriptions */
+        .subs-section {
+            background: #1a1a2e;
+            border-radius: 12px;
+            padding: 12px;
+        }
+
+        .subs-header {
             margin-bottom: 12px;
         }
 
-        /* Filter Pills - Horizontal Scroll */
-        .filter-scroll {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            margin: 0 -16px;
-            padding: 0 16px;
-            scrollbar-width: none;
+        .subs-header h2 {
+            font-size: 0.9rem;
+            color: #fff;
+            margin-bottom: 10px;
         }
 
-        .filter-scroll::-webkit-scrollbar {
+        .filters {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .filters::-webkit-scrollbar {
             display: none;
         }
 
-        .filter-tabs {
-            display: flex;
-            gap: 8px;
-            min-width: max-content;
-        }
-
-        .filter-tab {
-            padding: 10px 16px;
-            border-radius: 20px;
+        .filter-btn {
+            padding: 8px 12px;
+            border-radius: 16px;
             border: none;
-            background: rgba(255, 255, 255, 0.1);
-            color: #8892b0;
-            font-size: 0.85rem;
+            background: #2a2a3e;
+            color: #888;
+            font-size: 0.75rem;
             white-space: nowrap;
-            cursor: pointer;
+            flex-shrink: 0;
         }
 
-        .filter-tab.active {
+        .filter-btn.active {
             background: #e94560;
             color: #fff;
         }
 
-        /* Search Bar */
-        .search-bar {
+        .search-row {
             display: flex;
             gap: 8px;
-            margin-top: 12px;
-            margin-bottom: 16px;
+            margin: 10px 0;
         }
 
         .search-input {
             flex: 1;
-            padding: 12px 16px;
-            border-radius: 12px;
+            padding: 10px 12px;
+            border-radius: 8px;
             border: none;
-            background: rgba(255, 255, 255, 0.1);
+            background: #2a2a3e;
             color: #fff;
-            font-size: 1rem;
+            font-size: 0.9rem;
+            min-width: 0;
         }
 
         .search-input::placeholder {
-            color: #8892b0;
+            color: #666;
         }
 
         .sort-btn {
-            padding: 12px 16px;
-            border-radius: 12px;
+            padding: 10px 14px;
+            border-radius: 8px;
             border: none;
-            background: rgba(255, 255, 255, 0.1);
-            color: #8892b0;
-            font-size: 1.1rem;
+            background: #2a2a3e;
+            color: #888;
+            font-size: 1rem;
+            flex-shrink: 0;
         }
 
-        /* Subscription Cards - Mobile Optimized */
-        .subscription-list {
+        /* Sub Cards */
+        .sub-list {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 8px;
         }
 
-        .subscription-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        .sub-card {
+            background: #252538;
+            border-radius: 10px;
+            padding: 12px;
         }
 
-        .subscription-item.to-cancel {
-            border-color: rgba(255, 193, 7, 0.5);
-            background: rgba(255, 193, 7, 0.1);
+        .sub-card.marked {
+            border: 1px solid rgba(255,193,7,0.5);
+            background: rgba(255,193,7,0.05);
         }
 
-        .sub-main {
+        .sub-top {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
+            gap: 10px;
         }
 
         .sub-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             flex-shrink: 0;
         }
+
+        .cat-ai { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .cat-creative { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .cat-productivity { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .cat-google { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+        .cat-other { background: linear-gradient(135deg, #fa709a, #fee140); }
 
         .sub-info {
             flex: 1;
@@ -367,270 +342,191 @@
         }
 
         .sub-info h4 {
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: #fff;
-            margin-bottom: 4px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            margin-bottom: 2px;
         }
 
         .sub-info span {
-            font-size: 0.8rem;
-            color: #8892b0;
+            font-size: 0.7rem;
+            color: #666;
         }
 
-        .sub-info .due-soon {
+        .sub-info .due {
             color: #ffc107;
         }
 
         .sub-price {
             text-align: right;
+            flex-shrink: 0;
         }
 
-        .sub-price .amount {
-            font-size: 1.3rem;
+        .sub-price .amt {
+            font-size: 1.1rem;
             font-weight: 700;
             color: #e94560;
         }
 
-        .sub-price .period {
-            font-size: 0.7rem;
-            color: #8892b0;
+        .sub-price .per {
+            font-size: 0.6rem;
+            color: #666;
         }
 
         .sub-bottom {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 12px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #333;
         }
 
-        .rating {
+        .stars {
             display: flex;
-            gap: 4px;
+            gap: 2px;
         }
 
-        .rating span {
-            font-size: 1.3rem;
+        .stars span {
+            font-size: 1rem;
             opacity: 0.3;
             cursor: pointer;
-            padding: 4px;
+            padding: 2px;
         }
 
-        .rating span.active {
+        .stars span.on {
             opacity: 1;
         }
 
-        .sub-actions {
+        .actions {
             display: flex;
-            gap: 8px;
+            gap: 6px;
         }
 
-        .sub-actions button {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
+        .actions button {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
             border: none;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-size: 0.9rem;
             cursor: pointer;
         }
 
-        .btn-edit { background: rgba(79, 172, 254, 0.2); color: #4facfe; }
-        .btn-cancel { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
-        .btn-delete { background: rgba(233, 69, 96, 0.2); color: #e94560; }
-        .btn-restore { background: rgba(100, 255, 218, 0.2); color: #64ffda; }
+        .btn-e { background: rgba(79,172,254,0.2); color: #4facfe; }
+        .btn-c { background: rgba(255,193,7,0.2); color: #ffc107; }
+        .btn-d { background: rgba(233,69,96,0.2); color: #e94560; }
+        .btn-r { background: rgba(78,205,196,0.2); color: #4ecdc4; }
 
-        /* Category Colors */
-        .category-ai { background: linear-gradient(135deg, #667eea, #764ba2); }
-        .category-creative { background: linear-gradient(135deg, #f093fb, #f5576c); }
-        .category-productivity { background: linear-gradient(135deg, #4facfe, #00f2fe); }
-        .category-google { background: linear-gradient(135deg, #43e97b, #38f9d7); }
-        .category-other { background: linear-gradient(135deg, #fa709a, #fee140); }
-
-        /* Floating Action Button */
+        /* FAB */
         .fab {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
-            width: 60px;
-            height: 60px;
+            bottom: 20px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            background: #e94560;
             border: none;
             color: white;
             font-size: 1.8rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 20px rgba(233, 69, 96, 0.5);
-            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(233,69,96,0.4);
             z-index: 100;
         }
 
-        .fab:active {
-            transform: scale(0.95);
-        }
-
-        /* Top Action Bar */
-        .top-actions {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-            justify-content: center;
-        }
-
-        .top-btn {
-            padding: 10px 16px;
-            border-radius: 10px;
-            border: none;
-            background: rgba(255, 255, 255, 0.1);
-            color: #ccd6f6;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-        }
-
-        /* Modal - Full Screen on Mobile */
-        .modal-overlay {
+        /* Modal */
+        .modal-bg {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            padding: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 200;
             overflow-y: auto;
+            padding: 16px;
         }
 
-        .modal-overlay.active {
+        .modal-bg.open {
             display: block;
         }
 
-        .modal {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            min-height: 100vh;
+        .modal-box {
+            background: #1a1a2e;
+            border-radius: 16px;
             padding: 20px;
-            padding-top: 60px;
+            max-width: 400px;
+            margin: 0 auto;
         }
 
-        .modal-close {
-            position: fixed;
-            top: 16px;
-            right: 16px;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: #fff;
-            font-size: 1.5rem;
-            z-index: 1001;
-            cursor: pointer;
-        }
-
-        .modal h2 {
-            color: #ccd6f6;
-            margin-bottom: 24px;
-            font-size: 1.5rem;
-        }
-
-        .form-group {
+        .modal-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 20px;
         }
 
-        .form-group label {
-            display: block;
-            color: #8892b0;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
+        .modal-head h2 {
+            font-size: 1.2rem;
+            color: #fff;
         }
 
-        .form-group input, .form-group select {
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #2a2a3e;
+            border: none;
+            color: #888;
+            font-size: 1.2rem;
+        }
+
+        .field {
+            margin-bottom: 16px;
+        }
+
+        .field label {
+            display: block;
+            color: #888;
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+        }
+
+        .field input, .field select {
             width: 100%;
-            padding: 16px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            background: #252538;
             color: #fff;
             font-size: 1rem;
         }
 
-        .form-group select {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%238892b0' stroke-width='2'%3E%3Cpolyline points='6,9 12,15 18,9'%3E%3C/polyline%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            padding-right: 44px;
-        }
-
-        .form-row {
+        .field-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 10px;
         }
 
-        .btn-save {
+        .save-btn {
             width: 100%;
-            padding: 18px;
-            border-radius: 14px;
+            padding: 14px;
+            border-radius: 10px;
             border: none;
-            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            background: #e94560;
             color: white;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
-            margin-top: 24px;
-            cursor: pointer;
+            margin-top: 10px;
         }
 
-        /* Sort Modal */
-        .sort-modal {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #1a1a2e;
-            border-radius: 20px 20px 0 0;
-            padding: 20px;
-            transform: translateY(100%);
-            transition: transform 0.3s;
-            z-index: 1000;
-        }
-
-        .sort-modal.active {
-            transform: translateY(0);
-        }
-
-        .sort-modal h3 {
-            color: #ccd6f6;
-            margin-bottom: 16px;
-            text-align: center;
-        }
-
-        .sort-option {
-            padding: 16px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            margin-bottom: 8px;
-            color: #ccd6f6;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .sort-option.active {
-            background: rgba(233, 69, 96, 0.2);
-            color: #e94560;
-        }
-
-        .sort-overlay {
+        /* Sort Sheet */
+        .sheet-bg {
             display: none;
             position: fixed;
             top: 0;
@@ -638,28 +534,67 @@
             right: 0;
             bottom: 0;
             background: rgba(0,0,0,0.5);
-            z-index: 999;
+            z-index: 150;
         }
 
-        .sort-overlay.active {
+        .sheet-bg.open {
             display: block;
+        }
+
+        .sheet {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1a1a2e;
+            border-radius: 16px 16px 0 0;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+            z-index: 151;
+        }
+
+        .sheet.open {
+            transform: translateY(0);
+        }
+
+        .sheet h3 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+
+        .sheet-opt {
+            padding: 14px;
+            border-radius: 10px;
+            background: #252538;
+            color: #888;
+            text-align: center;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .sheet-opt.on {
+            background: rgba(233,69,96,0.2);
+            color: #e94560;
         }
 
         /* Toast */
         .toast {
             position: fixed;
-            bottom: 100px;
+            bottom: 90px;
             left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: #64ffda;
-            color: #1a1a2e;
-            padding: 14px 24px;
-            border-radius: 12px;
+            transform: translateX(-50%) translateY(50px);
+            background: #4ecdc4;
+            color: #000;
+            padding: 12px 20px;
+            border-radius: 8px;
             font-weight: 600;
+            font-size: 0.85rem;
             opacity: 0;
             transition: all 0.3s;
-            z-index: 2000;
-            white-space: nowrap;
+            z-index: 300;
         }
 
         .toast.show {
@@ -667,79 +602,39 @@
             opacity: 1;
         }
 
-        /* Empty State */
-        .empty-state {
+        .empty {
             text-align: center;
-            padding: 40px 20px;
-            color: #8892b0;
+            padding: 30px;
+            color: #666;
         }
 
-        .empty-state .icon {
-            font-size: 3rem;
-            margin-bottom: 12px;
+        .empty .icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
         }
 
-        /* Footer */
         footer {
             text-align: center;
-            padding: 20px;
-            color: #8892b0;
-            font-size: 0.8rem;
+            padding: 20px 0;
+            color: #444;
+            font-size: 0.7rem;
         }
 
-        /* Desktop Enhancements */
-        @media (min-width: 768px) {
-            body {
-                padding: 24px;
-            }
+        /* Top buttons */
+        .top-btns {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
 
-            h1 {
-                font-size: 2.2rem;
-            }
-
-            .stats-grid {
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                min-width: auto;
-            }
-
-            .stat-card {
-                min-width: auto;
-            }
-
-            .charts-section {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .modal {
-                max-width: 500px;
-                margin: 40px auto;
-                min-height: auto;
-                border-radius: 20px;
-                padding: 30px;
-                padding-top: 30px;
-            }
-
-            .modal-close {
-                position: absolute;
-                top: 16px;
-                right: 16px;
-            }
-
-            .fab {
-                bottom: 32px;
-                right: 32px;
-            }
-
-            .subscription-item {
-                flex-direction: row;
-                align-items: center;
-            }
-
-            .sub-bottom {
-                border-top: none;
-                padding-top: 0;
-            }
+        .top-btn {
+            padding: 8px 14px;
+            border-radius: 8px;
+            border: none;
+            background: #1a1a2e;
+            color: #888;
+            font-size: 0.8rem;
         }
     </style>
 </head>
@@ -747,542 +642,415 @@
     <div class="container">
         <header>
             <h1>💳 Subscriptions</h1>
-            <p class="subtitle">Track & Optimize Your Monthly Spend</p>
+            <p class="subtitle">Track Your Monthly Spend</p>
         </header>
 
-        <div class="top-actions">
+        <div class="top-btns">
             <button class="top-btn" onclick="exportCSV()">📥 Export</button>
-            <button class="top-btn" onclick="editBudget()">🎯 Budget</button>
+            <button class="top-btn" onclick="openBudget()">🎯 Budget</button>
         </div>
 
-        <div class="stats-scroll">
-            <div class="stats-grid" id="statsGrid"></div>
-        </div>
+        <div class="stats-grid" id="stats"></div>
 
         <div class="budget-section">
             <div class="budget-header">
-                <h2>🎯 Monthly Budget</h2>
-                <button class="budget-edit" onclick="editBudget()">Edit</button>
+                <h2>🎯 Budget</h2>
+                <button class="budget-edit" onclick="openBudget()">Edit</button>
             </div>
             <div class="progress-container">
-                <div class="progress-bar" id="budgetProgress"></div>
-                <span class="progress-text" id="budgetText"></span>
-            </div>
-            <div class="budget-labels">
-                <span>$0</span>
-                <span id="budgetGoal">$500</span>
+                <div class="progress-bar" id="progBar"></div>
+                <span class="progress-text" id="progText"></span>
             </div>
         </div>
 
-        <div class="to-cancel-section" id="toCancelSection" style="display:none">
+        <div class="to-cancel-section" id="cancelSection" style="display:none">
             <h2>⚠️ To Cancel</h2>
-            <div class="to-cancel-list" id="toCancelList"></div>
+            <div class="to-cancel-list" id="cancelList"></div>
             <div class="savings-row">
-                <div class="savings-stat">
-                    <div class="label">Monthly Savings</div>
-                    <div class="value" id="potentialSavings">$0</div>
-                </div>
-                <div class="savings-stat">
-                    <div class="label">Annual Savings</div>
-                    <div class="value" id="potentialAnnualSavings">$0</div>
-                </div>
+                <div><div class="label">Monthly</div><div class="value" id="saveMo">$0</div></div>
+                <div><div class="label">Annual</div><div class="value" id="saveYr">$0</div></div>
             </div>
         </div>
 
-        <div class="charts-section">
-            <div class="chart-container">
-                <h2>📊 By Category</h2>
-                <canvas id="categoryChart"></canvas>
+        <div class="charts-grid">
+            <div class="chart-box">
+                <h2>By Category</h2>
+                <canvas id="catChart"></canvas>
             </div>
-            <div class="chart-container">
-                <h2>📈 Trend</h2>
+            <div class="chart-box">
+                <h2>Trend</h2>
                 <canvas id="trendChart"></canvas>
             </div>
         </div>
 
-        <div class="subscriptions-section">
-            <div class="section-header">
-                <h2>🔄 Subscriptions</h2>
-                <div class="filter-scroll">
-                    <div class="filter-tabs">
-                        <button class="filter-tab active" data-filter="all">All</button>
-                        <button class="filter-tab" data-filter="ai">AI</button>
-                        <button class="filter-tab" data-filter="creative">Creative</button>
-                        <button class="filter-tab" data-filter="productivity">Productivity</button>
-                        <button class="filter-tab" data-filter="google">Google</button>
-                        <button class="filter-tab" data-filter="other">Other</button>
-                    </div>
+        <div class="subs-section">
+            <div class="subs-header">
+                <h2>🔄 Active</h2>
+                <div class="filters" id="filters">
+                    <button class="filter-btn active" data-f="all">All</button>
+                    <button class="filter-btn" data-f="ai">AI</button>
+                    <button class="filter-btn" data-f="creative">Creative</button>
+                    <button class="filter-btn" data-f="productivity">Prod</button>
+                    <button class="filter-btn" data-f="google">Google</button>
+                    <button class="filter-btn" data-f="other">Other</button>
                 </div>
             </div>
-            
-            <div class="search-bar">
-                <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search...">
-                <button class="sort-btn" onclick="openSortModal()">⇅</button>
+            <div class="search-row">
+                <input type="text" class="search-input" id="search" placeholder="🔍 Search...">
+                <button class="sort-btn" onclick="openSort()">⇅</button>
             </div>
-
-            <div class="subscription-list" id="subscriptionList"></div>
+            <div class="sub-list" id="list"></div>
         </div>
 
-        <footer>
-            <p>Saved locally • <span id="lastUpdated"></span></p>
-            <p>Built with 🦉 by Kip</p>
-        </footer>
+        <footer>Built with 🦉 by Kip</footer>
     </div>
 
-    <!-- Floating Add Button -->
-    <button class="fab" onclick="openAddModal()">+</button>
+    <button class="fab" onclick="openAdd()">+</button>
 
     <!-- Add/Edit Modal -->
-    <div class="modal-overlay" id="modalOverlay">
-        <button class="modal-close" onclick="closeModal()">✕</button>
-        <div class="modal">
-            <h2 id="modalTitle">Add Subscription</h2>
-            <form id="subscriptionForm">
+    <div class="modal-bg" id="modal">
+        <div class="modal-box">
+            <div class="modal-head">
+                <h2 id="modalTitle">Add</h2>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            <form id="form">
                 <input type="hidden" id="editId">
-                
-                <div class="form-group">
+                <div class="field">
                     <label>Name</label>
-                    <input type="text" id="subName" required placeholder="Netflix, Spotify, etc.">
+                    <input type="text" id="fName" required placeholder="Netflix">
                 </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Price/Month</label>
-                        <input type="number" id="subPrice" step="0.01" required placeholder="9.99">
+                <div class="field-row">
+                    <div class="field">
+                        <label>Price/mo</label>
+                        <input type="number" id="fPrice" step="0.01" required placeholder="9.99">
                     </div>
-                    <div class="form-group">
+                    <div class="field">
                         <label>Category</label>
-                        <select id="subCategory">
-                            <option value="ai">AI Tools</option>
+                        <select id="fCat">
+                            <option value="ai">AI</option>
                             <option value="creative">Creative</option>
                             <option value="productivity">Productivity</option>
-                            <option value="google">Google/Apple</option>
+                            <option value="google">Google</option>
                             <option value="other">Other</option>
                         </select>
                     </div>
                 </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
+                <div class="field-row">
+                    <div class="field">
                         <label>Billing Day</label>
-                        <input type="number" id="subBillingDay" min="1" max="31" placeholder="15">
+                        <input type="number" id="fDay" min="1" max="31" placeholder="15">
                     </div>
-                    <div class="form-group">
+                    <div class="field">
                         <label>Icon</label>
-                        <input type="text" id="subIcon" placeholder="🎬" maxlength="2">
+                        <input type="text" id="fIcon" placeholder="🎬" maxlength="2">
                     </div>
                 </div>
-                
-                <div class="form-group">
-                    <label>Notes</label>
-                    <input type="text" id="subNote" placeholder="Pro Plan, Team, etc.">
+                <div class="field">
+                    <label>Note</label>
+                    <input type="text" id="fNote" placeholder="Pro Plan">
                 </div>
-                
-                <button type="submit" class="btn-save">Save Subscription</button>
+                <button type="submit" class="save-btn">Save</button>
             </form>
         </div>
     </div>
 
     <!-- Budget Modal -->
-    <div class="modal-overlay" id="budgetModalOverlay">
-        <button class="modal-close" onclick="closeBudgetModal()">✕</button>
-        <div class="modal">
-            <h2>Set Budget</h2>
+    <div class="modal-bg" id="budgetModal">
+        <div class="modal-box">
+            <div class="modal-head">
+                <h2>Budget</h2>
+                <button class="modal-close" onclick="closeBudget()">✕</button>
+            </div>
             <form id="budgetForm">
-                <div class="form-group">
+                <div class="field">
                     <label>Monthly Budget ($)</label>
-                    <input type="number" id="budgetInput" step="1" required placeholder="500">
+                    <input type="number" id="fBudget" required placeholder="500">
                 </div>
-                <button type="submit" class="btn-save">Save Budget</button>
+                <button type="submit" class="save-btn">Save</button>
             </form>
         </div>
     </div>
 
-    <!-- Sort Modal (Bottom Sheet) -->
-    <div class="sort-overlay" id="sortOverlay" onclick="closeSortModal()"></div>
-    <div class="sort-modal" id="sortModal">
+    <!-- Sort Sheet -->
+    <div class="sheet-bg" id="sortBg" onclick="closeSort()"></div>
+    <div class="sheet" id="sortSheet">
         <h3>Sort By</h3>
-        <div class="sort-option" data-sort="name">Name (A-Z)</div>
-        <div class="sort-option" data-sort="price-high">Price (High to Low)</div>
-        <div class="sort-option" data-sort="price-low">Price (Low to High)</div>
-        <div class="sort-option" data-sort="billing">Billing Date</div>
-        <div class="sort-option" data-sort="rating">Rating</div>
+        <div class="sheet-opt" data-s="name">Name</div>
+        <div class="sheet-opt" data-s="price-high">Price ↓</div>
+        <div class="sheet-opt" data-s="price-low">Price ↑</div>
+        <div class="sheet-opt" data-s="billing">Billing Date</div>
+        <div class="sheet-opt" data-s="rating">Rating</div>
     </div>
 
-    <!-- Toast -->
     <div class="toast" id="toast"></div>
 
     <script>
-        // Default data
-        const defaultSubscriptions = [
-            { id: 1, name: 'OpenAI ChatGPT', category: 'ai', price: 200, icon: '🤖', note: 'Pro', billingDay: 12, rating: 5, status: 'active' },
-            { id: 2, name: 'Claude.AI', category: 'ai', price: 120, icon: '🧠', note: 'Max', billingDay: 26, rating: 5, status: 'active' },
-            { id: 3, name: 'Perplexity', category: 'ai', price: 10, icon: '🔍', note: 'Pro', billingDay: 4, rating: 3, status: 'active' },
-            { id: 4, name: 'Anthropic API', category: 'ai', price: 5, icon: '⚡', note: '', billingDay: 3, rating: 4, status: 'active' },
-            { id: 5, name: 'Higgsfield', category: 'creative', price: 80, icon: '🎬', note: 'Video', billingDay: 2, rating: 4, status: 'active' },
-            { id: 6, name: 'Suno', category: 'creative', price: 10.73, icon: '🎵', note: 'Music', billingDay: 7, rating: 4, status: 'active' },
-            { id: 7, name: 'Runway', category: 'creative', price: 15, icon: '🎥', note: '', billingDay: 9, rating: 3, status: 'active' },
-            { id: 8, name: 'Notion', category: 'productivity', price: 24, icon: '📝', note: 'Team', billingDay: 3, rating: 5, status: 'active' },
-            { id: 9, name: 'Canva', category: 'productivity', price: 14.99, icon: '🎨', note: 'Pro', billingDay: 5, rating: 4, status: 'active' },
-            { id: 10, name: 'Loom', category: 'productivity', price: 24, icon: '📹', note: '', billingDay: 6, rating: 2, status: 'active' },
-            { id: 11, name: 'Gamma', category: 'productivity', price: 20, icon: '📊', note: '', billingDay: 15, rating: 3, status: 'active' },
-            { id: 12, name: 'Adobe', category: 'productivity', price: 69.99, icon: '🅰️', note: 'CC', billingDay: 13, rating: 4, status: 'active' },
-            { id: 13, name: 'Obsidian', category: 'productivity', price: 5, icon: '💎', note: 'Sync', billingDay: 8, rating: 4, status: 'active' },
-            { id: 14, name: 'Mem AI', category: 'productivity', price: 12, icon: '🧩', note: '', billingDay: 14, rating: 2, status: 'active' },
-            { id: 15, name: 'Google', category: 'google', price: 67, icon: '🔵', note: 'Workspace', billingDay: 1, rating: 5, status: 'active' },
-            { id: 16, name: 'Apple', category: 'google', price: 35, icon: '🍎', note: 'Services', billingDay: 22, rating: 4, status: 'active' },
-            { id: 17, name: 'Takeover', category: 'other', price: 7, icon: '📺', note: '', billingDay: 1, rating: 3, status: 'active' },
+        const defaults = [
+            {id:1,name:'OpenAI ChatGPT',cat:'ai',price:200,icon:'🤖',note:'Pro',day:12,rating:5,status:'active'},
+            {id:2,name:'Claude.AI',cat:'ai',price:120,icon:'🧠',note:'Max',day:26,rating:5,status:'active'},
+            {id:3,name:'Perplexity',cat:'ai',price:10,icon:'🔍',note:'Pro',day:4,rating:3,status:'active'},
+            {id:4,name:'Anthropic API',cat:'ai',price:5,icon:'⚡',note:'',day:3,rating:4,status:'active'},
+            {id:5,name:'Higgsfield',cat:'creative',price:80,icon:'🎬',note:'Video',day:2,rating:4,status:'active'},
+            {id:6,name:'Suno',cat:'creative',price:10.73,icon:'🎵',note:'Music',day:7,rating:4,status:'active'},
+            {id:7,name:'Runway',cat:'creative',price:15,icon:'🎥',note:'',day:9,rating:3,status:'active'},
+            {id:8,name:'Notion',cat:'productivity',price:24,icon:'📝',note:'Team',day:3,rating:5,status:'active'},
+            {id:9,name:'Canva',cat:'productivity',price:14.99,icon:'🎨',note:'Pro',day:5,rating:4,status:'active'},
+            {id:10,name:'Loom',cat:'productivity',price:24,icon:'📹',note:'',day:6,rating:2,status:'active'},
+            {id:11,name:'Gamma',cat:'productivity',price:20,icon:'📊',note:'',day:15,rating:3,status:'active'},
+            {id:12,name:'Adobe',cat:'productivity',price:69.99,icon:'🅰️',note:'CC',day:13,rating:4,status:'active'},
+            {id:13,name:'Obsidian',cat:'productivity',price:5,icon:'💎',note:'Sync',day:8,rating:4,status:'active'},
+            {id:14,name:'Mem AI',cat:'productivity',price:12,icon:'🧩',note:'',day:14,rating:2,status:'active'},
+            {id:15,name:'Google',cat:'google',price:67,icon:'🔵',note:'Workspace',day:1,rating:5,status:'active'},
+            {id:16,name:'Apple',cat:'google',price:35,icon:'🍎',note:'Services',day:22,rating:4,status:'active'},
+            {id:17,name:'Takeover',cat:'other',price:7,icon:'📺',note:'',day:1,rating:3,status:'active'},
         ];
 
-        let subscriptions = [];
-        let budget = 500;
-        let currentFilter = 'all';
-        let currentSort = 'name';
-        let categoryChart = null;
-        let trendChart = null;
+        let subs=[], budget=500, filter='all', sort='name';
+        let catChart, trendChart;
 
-        function loadData() {
-            const saved = localStorage.getItem('subscriptions_v2');
-            const savedBudget = localStorage.getItem('budget_v2');
-            subscriptions = saved ? JSON.parse(saved) : [...defaultSubscriptions];
-            budget = savedBudget ? parseFloat(savedBudget) : 500;
-            if (!saved) saveData();
+        function load(){
+            subs = JSON.parse(localStorage.getItem('subs_v4')) || [...defaults];
+            budget = parseFloat(localStorage.getItem('budget_v4')) || 500;
         }
 
-        function saveData() {
-            localStorage.setItem('subscriptions_v2', JSON.stringify(subscriptions));
-            localStorage.setItem('budget_v2', budget.toString());
-            document.getElementById('lastUpdated').textContent = new Date().toLocaleDateString();
+        function save(){
+            localStorage.setItem('subs_v4', JSON.stringify(subs));
+            localStorage.setItem('budget_v4', budget);
         }
 
-        function getStats() {
-            const active = subscriptions.filter(s => s.status === 'active');
-            const toCancel = subscriptions.filter(s => s.status === 'to-cancel');
-            const cancelled = subscriptions.filter(s => s.status === 'cancelled');
-            const monthlyTotal = active.reduce((sum, s) => sum + s.price, 0);
+        function getStats(){
+            const active = subs.filter(s=>s.status==='active');
+            const toCancel = subs.filter(s=>s.status==='to-cancel');
+            const total = active.reduce((a,s)=>a+s.price,0);
             return {
-                monthlyTotal,
-                annualTotal: monthlyTotal * 12,
-                activeCount: active.length,
-                toCancelTotal: toCancel.reduce((sum, s) => sum + s.price, 0),
-                cancelledTotal: cancelled.reduce((sum, s) => sum + s.price, 0),
-                categories: {
-                    ai: active.filter(s => s.category === 'ai').reduce((sum, s) => sum + s.price, 0),
-                    creative: active.filter(s => s.category === 'creative').reduce((sum, s) => sum + s.price, 0),
-                    productivity: active.filter(s => s.category === 'productivity').reduce((sum, s) => sum + s.price, 0),
-                    google: active.filter(s => s.category === 'google').reduce((sum, s) => sum + s.price, 0),
-                    other: active.filter(s => s.category === 'other').reduce((sum, s) => sum + s.price, 0),
+                total, annual: total*12,
+                count: active.length,
+                cancelTotal: toCancel.reduce((a,s)=>a+s.price,0),
+                cats: {
+                    ai: active.filter(s=>s.cat==='ai').reduce((a,s)=>a+s.price,0),
+                    creative: active.filter(s=>s.cat==='creative').reduce((a,s)=>a+s.price,0),
+                    productivity: active.filter(s=>s.cat==='productivity').reduce((a,s)=>a+s.price,0),
+                    google: active.filter(s=>s.cat==='google').reduce((a,s)=>a+s.price,0),
+                    other: active.filter(s=>s.cat==='other').reduce((a,s)=>a+s.price,0),
                 }
             };
         }
 
-        function renderStats() {
-            const stats = getStats();
-            const remaining = budget - stats.monthlyTotal;
-            document.getElementById('statsGrid').innerHTML = `
-                <div class="stat-card">
-                    <h3>Monthly</h3>
-                    <div class="value">$${stats.monthlyTotal.toFixed(0)}</div>
-                    <div class="change">${stats.activeCount} active</div>
-                </div>
-                <div class="stat-card">
-                    <h3>Annual</h3>
-                    <div class="value">$${stats.annualTotal.toFixed(0)}</div>
-                    <div class="change">projected</div>
-                </div>
-                <div class="stat-card">
-                    <h3>Remaining</h3>
-                    <div class="value" style="color: ${remaining >= 0 ? '#64ffda' : '#e94560'}">$${remaining.toFixed(0)}</div>
-                    <div class="change">${remaining >= 0 ? 'under budget' : 'over!'}</div>
-                </div>
-                <div class="stat-card savings">
-                    <h3>Saved</h3>
-                    <div class="value">$${stats.cancelledTotal.toFixed(0)}</div>
-                    <div class="change">cancelled</div>
-                </div>
+        function renderStats(){
+            const st = getStats();
+            const rem = budget - st.total;
+            document.getElementById('stats').innerHTML = `
+                <div class="stat-card"><h3>Monthly</h3><div class="value">$${st.total.toFixed(0)}</div><div class="change">${st.count} subs</div></div>
+                <div class="stat-card"><h3>Annual</h3><div class="value">$${st.annual.toFixed(0)}</div><div class="change">projected</div></div>
+                <div class="stat-card"><h3>Left</h3><div class="value" style="color:${rem>=0?'#4ecdc4':'#e94560'}">$${rem.toFixed(0)}</div><div class="change">${rem>=0?'under':'over'}</div></div>
+                <div class="stat-card"><h3>Saved</h3><div class="value" style="color:#4ecdc4">$${subs.filter(s=>s.status==='cancelled').reduce((a,s)=>a+s.price,0).toFixed(0)}</div><div class="change">cancelled</div></div>
             `;
-            
-            const pct = Math.min((stats.monthlyTotal / budget) * 100, 100);
-            const bar = document.getElementById('budgetProgress');
-            bar.style.width = pct + '%';
-            bar.className = 'progress-bar' + (stats.monthlyTotal > budget ? ' over-budget' : '');
-            document.getElementById('budgetText').textContent = `$${stats.monthlyTotal.toFixed(0)} / $${budget}`;
-            document.getElementById('budgetGoal').textContent = `$${budget}`;
+            const pct = Math.min((st.total/budget)*100,100);
+            document.getElementById('progBar').style.width = pct+'%';
+            document.getElementById('progBar').className = 'progress-bar'+(st.total>budget?' over':'');
+            document.getElementById('progText').textContent = `$${st.total.toFixed(0)} / $${budget}`;
         }
 
-        function renderToCancel() {
-            const toCancel = subscriptions.filter(s => s.status === 'to-cancel');
-            const section = document.getElementById('toCancelSection');
-            if (toCancel.length === 0) { section.style.display = 'none'; return; }
-            section.style.display = 'block';
-            const total = toCancel.reduce((sum, s) => sum + s.price, 0);
-            document.getElementById('toCancelList').innerHTML = toCancel.map(s => `
-                <div class="to-cancel-item"><span>${s.icon}</span><span>${s.name}</span><span class="price">$${s.price.toFixed(0)}</span></div>
-            `).join('');
-            document.getElementById('potentialSavings').textContent = `$${total.toFixed(0)}`;
-            document.getElementById('potentialAnnualSavings').textContent = `$${(total * 12).toFixed(0)}`;
+        function renderCancel(){
+            const list = subs.filter(s=>s.status==='to-cancel');
+            const sec = document.getElementById('cancelSection');
+            if(!list.length){ sec.style.display='none'; return; }
+            sec.style.display='block';
+            const total = list.reduce((a,s)=>a+s.price,0);
+            document.getElementById('cancelList').innerHTML = list.map(s=>`<div class="to-cancel-chip"><span>${s.icon}</span><span>${s.name}</span><span class="price">$${s.price.toFixed(0)}</span></div>`).join('');
+            document.getElementById('saveMo').textContent = `$${total.toFixed(0)}`;
+            document.getElementById('saveYr').textContent = `$${(total*12).toFixed(0)}`;
         }
 
-        function getDaysUntil(day) {
-            if (!day) return null;
+        function getDays(day){
+            if(!day) return null;
             const today = new Date().getDate();
-            const daysInMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
-            return day >= today ? day - today : daysInMonth - today + day;
+            const dim = new Date(new Date().getFullYear(), new Date().getMonth()+1, 0).getDate();
+            return day>=today ? day-today : dim-today+day;
         }
 
-        function renderSubscriptions() {
-            const search = document.getElementById('searchInput').value.toLowerCase();
-            let filtered = subscriptions.filter(s => {
-                if (currentFilter !== 'all' && s.category !== currentFilter) return false;
-                if (search && !s.name.toLowerCase().includes(search)) return false;
+        function renderList(){
+            const q = document.getElementById('search').value.toLowerCase();
+            let list = subs.filter(s=>{
+                if(filter!=='all' && s.cat!==filter) return false;
+                if(q && !s.name.toLowerCase().includes(q)) return false;
                 return true;
             });
-            
-            filtered.sort((a, b) => {
-                switch (currentSort) {
-                    case 'price-high': return b.price - a.price;
-                    case 'price-low': return a.price - b.price;
-                    case 'billing': return (a.billingDay || 32) - (b.billingDay || 32);
-                    case 'rating': return (b.rating || 0) - (a.rating || 0);
+            list.sort((a,b)=>{
+                switch(sort){
+                    case 'price-high': return b.price-a.price;
+                    case 'price-low': return a.price-b.price;
+                    case 'billing': return (a.day||32)-(b.day||32);
+                    case 'rating': return (b.rating||0)-(a.rating||0);
                     default: return a.name.localeCompare(b.name);
                 }
             });
-            
-            const list = document.getElementById('subscriptionList');
-            if (filtered.length === 0) {
-                list.innerHTML = `<div class="empty-state"><div class="icon">📭</div><p>No subscriptions found</p></div>`;
-                return;
-            }
-            
-            list.innerHTML = filtered.map(sub => {
-                const days = getDaysUntil(sub.billingDay);
-                const dueText = days !== null ? `Due in ${days}d` : '';
-                const dueClass = days !== null && days <= 3 ? 'due-soon' : '';
-                const statusClass = sub.status === 'to-cancel' ? 'to-cancel' : '';
-                
+            const el = document.getElementById('list');
+            if(!list.length){ el.innerHTML='<div class="empty"><div class="icon">📭</div>No subs</div>'; return; }
+            el.innerHTML = list.map(s=>{
+                const days = getDays(s.day);
+                const due = days!==null ? `<span class="${days<=3?'due':''}">in ${days}d</span>` : '';
                 return `
-                    <div class="subscription-item ${statusClass}">
-                        <div class="sub-main">
-                            <div class="sub-icon category-${sub.category}">${sub.icon || '📦'}</div>
-                            <div class="sub-info">
-                                <h4>${sub.name}</h4>
-                                <span>${sub.note || ''} ${dueText ? `<span class="${dueClass}">${dueText}</span>` : ''}</span>
-                            </div>
-                            <div class="sub-price">
-                                <div class="amount">$${sub.price.toFixed(0)}</div>
-                                <div class="period">/mo</div>
-                            </div>
+                <div class="sub-card${s.status==='to-cancel'?' marked':''}">
+                    <div class="sub-top">
+                        <div class="sub-icon cat-${s.cat}">${s.icon||'📦'}</div>
+                        <div class="sub-info">
+                            <h4>${s.name}</h4>
+                            <span>${s.note||''} ${due}</span>
                         </div>
-                        <div class="sub-bottom">
-                            <div class="rating">
-                                ${[1,2,3,4,5].map(i => `<span class="${i <= (sub.rating||0) ? 'active' : ''}" onclick="setRating(${sub.id},${i})">⭐</span>`).join('')}
-                            </div>
-                            <div class="sub-actions">
-                                <button class="btn-edit" onclick="editSub(${sub.id})">✏️</button>
-                                ${sub.status === 'active' 
-                                    ? `<button class="btn-cancel" onclick="markCancel(${sub.id})">⚠️</button>`
-                                    : `<button class="btn-restore" onclick="restore(${sub.id})">✅</button>`}
-                                <button class="btn-delete" onclick="deleteSub(${sub.id})">🗑️</button>
-                            </div>
+                        <div class="sub-price">
+                            <div class="amt">$${s.price.toFixed(0)}</div>
+                            <div class="per">/mo</div>
                         </div>
                     </div>
-                `;
+                    <div class="sub-bottom">
+                        <div class="stars">${[1,2,3,4,5].map(i=>`<span class="${i<=(s.rating||0)?'on':''}" onclick="rate(${s.id},${i})">⭐</span>`).join('')}</div>
+                        <div class="actions">
+                            <button class="btn-e" onclick="edit(${s.id})">✏️</button>
+                            ${s.status==='active'?`<button class="btn-c" onclick="mark(${s.id})">⚠️</button>`:`<button class="btn-r" onclick="restore(${s.id})">✅</button>`}
+                            <button class="btn-d" onclick="del(${s.id})">🗑️</button>
+                        </div>
+                    </div>
+                </div>`;
             }).join('');
         }
 
-        function renderCharts() {
-            const stats = getStats();
-            if (categoryChart) categoryChart.destroy();
-            if (trendChart) trendChart.destroy();
-            
-            categoryChart = new Chart(document.getElementById('categoryChart'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['AI', 'Creative', 'Productivity', 'Google', 'Other'],
-                    datasets: [{
-                        data: [stats.categories.ai, stats.categories.creative, stats.categories.productivity, stats.categories.google, stats.categories.other],
-                        backgroundColor: ['rgba(102,126,234,0.8)', 'rgba(240,147,251,0.8)', 'rgba(79,172,254,0.8)', 'rgba(67,233,123,0.8)', 'rgba(250,112,154,0.8)'],
-                        borderWidth: 0
-                    }]
+        function renderCharts(){
+            const st = getStats();
+            if(catChart) catChart.destroy();
+            if(trendChart) trendChart.destroy();
+            catChart = new Chart(document.getElementById('catChart'),{
+                type:'doughnut',
+                data:{
+                    labels:['AI','Creative','Prod','Google','Other'],
+                    datasets:[{data:[st.cats.ai,st.cats.creative,st.cats.productivity,st.cats.google,st.cats.other],backgroundColor:['#667eea','#f093fb','#4facfe','#43e97b','#fa709a'],borderWidth:0}]
                 },
-                options: { responsive: true, plugins: { legend: { position: 'bottom', labels: { color: '#8892b0', padding: 10, font: { size: 10 } } } } }
+                options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:false}}}
             });
-
-            const base = stats.monthlyTotal;
-            trendChart = new Chart(document.getElementById('trendChart'), {
-                type: 'line',
-                data: {
-                    labels: ['Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb'],
-                    datasets: [{
-                        data: [base*0.92, base*0.95, base*1.02, base*0.98, base*1.01, base],
-                        borderColor: '#e94560',
-                        backgroundColor: 'rgba(233,69,96,0.1)',
-                        fill: true,
-                        tension: 0.4,
-                        pointRadius: 3
-                    }]
+            const base = st.total;
+            trendChart = new Chart(document.getElementById('trendChart'),{
+                type:'line',
+                data:{
+                    labels:['S','O','N','D','J','F'],
+                    datasets:[{data:[base*.92,base*.95,base*1.02,base*.98,base*1.01,base],borderColor:'#e94560',backgroundColor:'rgba(233,69,96,0.1)',fill:true,tension:0.4,pointRadius:2}]
                 },
-                options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { display: false }, x: { grid: { display: false }, ticks: { color: '#8892b0', font: { size: 10 } } } } }
+                options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{display:false}},scales:{y:{display:false},x:{grid:{display:false},ticks:{color:'#666',font:{size:9}}}}}
             });
         }
 
-        // Modals
-        function openAddModal() {
-            document.getElementById('modalTitle').textContent = 'Add Subscription';
-            document.getElementById('subscriptionForm').reset();
-            document.getElementById('editId').value = '';
-            document.getElementById('modalOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        function openAdd(){
+            document.getElementById('modalTitle').textContent='Add';
+            document.getElementById('form').reset();
+            document.getElementById('editId').value='';
+            document.getElementById('modal').classList.add('open');
         }
 
-        function editSub(id) {
-            const sub = subscriptions.find(s => s.id === id);
-            if (!sub) return;
-            document.getElementById('modalTitle').textContent = 'Edit';
-            document.getElementById('editId').value = id;
-            document.getElementById('subName').value = sub.name;
-            document.getElementById('subPrice').value = sub.price;
-            document.getElementById('subCategory').value = sub.category;
-            document.getElementById('subBillingDay').value = sub.billingDay || '';
-            document.getElementById('subIcon').value = sub.icon || '';
-            document.getElementById('subNote').value = sub.note || '';
-            document.getElementById('modalOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        function edit(id){
+            const s = subs.find(x=>x.id===id);
+            if(!s) return;
+            document.getElementById('modalTitle').textContent='Edit';
+            document.getElementById('editId').value=id;
+            document.getElementById('fName').value=s.name;
+            document.getElementById('fPrice').value=s.price;
+            document.getElementById('fCat').value=s.cat;
+            document.getElementById('fDay').value=s.day||'';
+            document.getElementById('fIcon').value=s.icon||'';
+            document.getElementById('fNote').value=s.note||'';
+            document.getElementById('modal').classList.add('open');
         }
 
-        function closeModal() {
-            document.getElementById('modalOverlay').classList.remove('active');
-            document.body.style.overflow = '';
+        function closeModal(){ document.getElementById('modal').classList.remove('open'); }
+
+        function openBudget(){
+            document.getElementById('fBudget').value=budget;
+            document.getElementById('budgetModal').classList.add('open');
         }
 
-        function editBudget() {
-            document.getElementById('budgetInput').value = budget;
-            document.getElementById('budgetModalOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
+        function closeBudget(){ document.getElementById('budgetModal').classList.remove('open'); }
+
+        function openSort(){
+            document.getElementById('sortBg').classList.add('open');
+            document.getElementById('sortSheet').classList.add('open');
+            document.querySelectorAll('.sheet-opt').forEach(o=>o.classList.toggle('on',o.dataset.s===sort));
         }
 
-        function closeBudgetModal() {
-            document.getElementById('budgetModalOverlay').classList.remove('active');
-            document.body.style.overflow = '';
+        function closeSort(){
+            document.getElementById('sortBg').classList.remove('open');
+            document.getElementById('sortSheet').classList.remove('open');
         }
 
-        function openSortModal() {
-            document.getElementById('sortModal').classList.add('active');
-            document.getElementById('sortOverlay').classList.add('active');
-            document.querySelectorAll('.sort-option').forEach(opt => {
-                opt.classList.toggle('active', opt.dataset.sort === currentSort);
-            });
-        }
-
-        function closeSortModal() {
-            document.getElementById('sortModal').classList.remove('active');
-            document.getElementById('sortOverlay').classList.remove('active');
-        }
-
-        // Form handlers
-        document.getElementById('subscriptionForm').addEventListener('submit', function(e) {
+        document.getElementById('form').onsubmit = function(e){
             e.preventDefault();
-            const editId = document.getElementById('editId').value;
-            const newSub = {
-                id: editId ? parseInt(editId) : Date.now(),
-                name: document.getElementById('subName').value,
-                price: parseFloat(document.getElementById('subPrice').value),
-                category: document.getElementById('subCategory').value,
-                billingDay: parseInt(document.getElementById('subBillingDay').value) || null,
-                icon: document.getElementById('subIcon').value || '📦',
-                note: document.getElementById('subNote').value,
+            const eid = document.getElementById('editId').value;
+            const obj = {
+                id: eid ? parseInt(eid) : Date.now(),
+                name: document.getElementById('fName').value,
+                price: parseFloat(document.getElementById('fPrice').value),
+                cat: document.getElementById('fCat').value,
+                day: parseInt(document.getElementById('fDay').value)||null,
+                icon: document.getElementById('fIcon').value||'📦',
+                note: document.getElementById('fNote').value,
                 rating: 0,
                 status: 'active'
             };
-            
-            if (editId) {
-                const idx = subscriptions.findIndex(s => s.id === parseInt(editId));
-                if (idx !== -1) { newSub.rating = subscriptions[idx].rating; newSub.status = subscriptions[idx].status; subscriptions[idx] = newSub; }
-                showToast('Updated!');
+            if(eid){
+                const idx = subs.findIndex(s=>s.id===parseInt(eid));
+                if(idx>-1){ obj.rating=subs[idx].rating; obj.status=subs[idx].status; subs[idx]=obj; }
+                toast('Updated!');
             } else {
-                subscriptions.push(newSub);
-                showToast('Added!');
+                subs.push(obj);
+                toast('Added!');
             }
-            saveData(); renderAll(); closeModal();
-        });
+            save(); renderAll(); closeModal();
+        };
 
-        document.getElementById('budgetForm').addEventListener('submit', function(e) {
+        document.getElementById('budgetForm').onsubmit = function(e){
             e.preventDefault();
-            budget = parseFloat(document.getElementById('budgetInput').value);
-            saveData(); renderAll(); closeBudgetModal();
-            showToast('Budget saved!');
+            budget = parseFloat(document.getElementById('fBudget').value);
+            save(); renderAll(); closeBudget(); toast('Budget saved!');
+        };
+
+        document.querySelectorAll('.sheet-opt').forEach(o=>{
+            o.onclick = ()=>{ sort=o.dataset.s; renderList(); closeSort(); };
         });
 
-        // Sort options
-        document.querySelectorAll('.sort-option').forEach(opt => {
-            opt.addEventListener('click', () => {
-                currentSort = opt.dataset.sort;
-                renderSubscriptions();
-                closeSortModal();
-            });
+        document.querySelectorAll('.filter-btn').forEach(b=>{
+            b.onclick = ()=>{
+                document.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
+                b.classList.add('active');
+                filter = b.dataset.f;
+                renderList();
+            };
         });
 
-        // Actions
-        function setRating(id, r) {
-            const sub = subscriptions.find(s => s.id === id);
-            if (sub) { sub.rating = r; saveData(); renderSubscriptions(); }
-        }
+        document.getElementById('search').oninput = renderList;
 
-        function markCancel(id) {
-            const sub = subscriptions.find(s => s.id === id);
-            if (sub) { sub.status = 'to-cancel'; saveData(); renderAll(); showToast('Marked to cancel'); }
-        }
+        function rate(id,r){ const s=subs.find(x=>x.id===id); if(s){s.rating=r; save(); renderList();} }
+        function mark(id){ const s=subs.find(x=>x.id===id); if(s){s.status='to-cancel'; save(); renderAll(); toast('Marked');} }
+        function restore(id){ const s=subs.find(x=>x.id===id); if(s){s.status='active'; save(); renderAll(); toast('Restored');} }
+        function del(id){ if(confirm('Delete?')){ subs=subs.filter(s=>s.id!==id); save(); renderAll(); toast('Deleted'); } }
 
-        function restore(id) {
-            const sub = subscriptions.find(s => s.id === id);
-            if (sub) { sub.status = 'active'; saveData(); renderAll(); showToast('Restored!'); }
-        }
-
-        function deleteSub(id) {
-            if (confirm('Delete?')) {
-                subscriptions = subscriptions.filter(s => s.id !== id);
-                saveData(); renderAll(); showToast('Deleted');
-            }
-        }
-
-        function exportCSV() {
-            const rows = [['Name','Category','Price','Billing Day','Rating','Status','Note']];
-            subscriptions.forEach(s => rows.push([s.name, s.category, s.price, s.billingDay||'', s.rating||0, s.status, s.note||'']));
-            const csv = rows.map(r => r.join(',')).join('\n');
-            const a = document.createElement('a');
-            a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
-            a.download = 'subscriptions.csv';
+        function exportCSV(){
+            const rows=[['Name','Category','Price','Day','Rating','Status','Note']];
+            subs.forEach(s=>rows.push([s.name,s.cat,s.price,s.day||'',s.rating||0,s.status,s.note||'']));
+            const a=document.createElement('a');
+            a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(rows.map(r=>r.join(',')).join('\n'));
+            a.download='subscriptions.csv';
             a.click();
-            showToast('Exported!');
+            toast('Exported!');
         }
 
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            toast.textContent = msg;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 2500);
+        function toast(msg){
+            const t=document.getElementById('toast');
+            t.textContent=msg;
+            t.classList.add('show');
+            setTimeout(()=>t.classList.remove('show'),2000);
         }
 
-        // Filter tabs
-        document.querySelectorAll('.filter-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                currentFilter = tab.dataset.filter;
-                renderSubscriptions();
-            });
-        });
+        function renderAll(){ renderStats(); renderCancel(); renderList(); renderCharts(); }
 
-        document.getElementById('searchInput').addEventListener('input', renderSubscriptions);
-
-        function renderAll() {
-            renderStats();
-            renderToCancel();
-            renderSubscriptions();
-            renderCharts();
-        }
-
-        loadData();
+        load();
         renderAll();
     </script>
 </body>
