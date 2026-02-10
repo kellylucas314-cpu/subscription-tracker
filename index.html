@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subscription Tracker</title>
+    <title>Subscription Tracker V2</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * {
@@ -43,9 +43,48 @@
             font-size: 1.1rem;
         }
 
+        /* Top Actions Bar */
+        .actions-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .action-btn {
+            padding: 12px 24px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            color: white;
+        }
+
+        .action-btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ccd6f6;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(233, 69, 96, 0.3);
+        }
+
+        /* Stats Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 20px;
             margin-bottom: 40px;
         }
@@ -66,24 +105,139 @@
 
         .stat-card h3 {
             color: #8892b0;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 8px;
         }
 
         .stat-card .value {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: #e94560;
         }
 
         .stat-card .change {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #64ffda;
             margin-top: 4px;
         }
 
+        .stat-card.savings .value {
+            color: #64ffda;
+        }
+
+        /* Budget Progress */
+        .budget-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .budget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .budget-header h2 {
+            color: #ccd6f6;
+            font-size: 1.2rem;
+        }
+
+        .budget-edit {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #8892b0;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .budget-edit:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .progress-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            height: 24px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            background: linear-gradient(90deg, #64ffda, #4facfe);
+        }
+
+        .progress-bar.over-budget {
+            background: linear-gradient(90deg, #e94560, #ff6b6b);
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #1a1a2e;
+        }
+
+        .budget-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: #8892b0;
+        }
+
+        /* Search & Filter Bar */
+        .search-filter-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 0.95rem;
+        }
+
+        .search-input::placeholder {
+            color: #8892b0;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #e94560;
+        }
+
+        .sort-select {
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+
+        /* Charts Section */
         .charts-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -107,40 +261,47 @@
 
         .chart-container h2 {
             margin-bottom: 20px;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: #ccd6f6;
         }
 
+        /* Subscriptions Section */
         .subscriptions-section {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border-radius: 16px;
             padding: 24px;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
         }
 
-        .subscriptions-section h2 {
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 20px;
-            font-size: 1.3rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.2rem;
             color: #ccd6f6;
         }
 
         .filter-tabs {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
         .filter-tab {
-            padding: 8px 16px;
+            padding: 8px 14px;
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             background: transparent;
             color: #8892b0;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .filter-tab:hover, .filter-tab.active {
@@ -170,10 +331,21 @@
             border-color: rgba(233, 69, 96, 0.3);
         }
 
+        .subscription-item.to-cancel {
+            border-color: rgba(255, 193, 7, 0.5);
+            background: rgba(255, 193, 7, 0.1);
+        }
+
+        .subscription-item.cancelled {
+            opacity: 0.5;
+            text-decoration: line-through;
+        }
+
         .sub-info {
             display: flex;
             align-items: center;
             gap: 16px;
+            flex: 1;
         }
 
         .sub-icon {
@@ -185,6 +357,11 @@
             justify-content: center;
             font-size: 1.2rem;
             font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .sub-details {
+            flex: 1;
         }
 
         .sub-details h4 {
@@ -194,12 +371,49 @@
         }
 
         .sub-details span {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #8892b0;
+        }
+
+        .sub-details .billing-date {
+            color: #64ffda;
+            margin-left: 8px;
+        }
+
+        .sub-details .billing-date.due-soon {
+            color: #ffc107;
+        }
+
+        .sub-middle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-right: 20px;
+        }
+
+        .rating {
+            display: flex;
+            gap: 2px;
+        }
+
+        .rating span {
+            cursor: pointer;
+            font-size: 1.1rem;
+            opacity: 0.3;
+            transition: opacity 0.2s;
+        }
+
+        .rating span.active {
+            opacity: 1;
+        }
+
+        .rating span:hover {
+            opacity: 0.7;
         }
 
         .sub-price {
             text-align: right;
+            margin-right: 16px;
         }
 
         .sub-price .amount {
@@ -209,55 +423,244 @@
         }
 
         .sub-price .period {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: #8892b0;
         }
 
+        .sub-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .sub-actions button {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-edit {
+            background: rgba(79, 172, 254, 0.2);
+            color: #4facfe;
+        }
+
+        .btn-cancel {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+
+        .btn-delete {
+            background: rgba(233, 69, 96, 0.2);
+            color: #e94560;
+        }
+
+        .btn-restore {
+            background: rgba(100, 255, 218, 0.2);
+            color: #64ffda;
+        }
+
+        .sub-actions button:hover {
+            transform: scale(1.1);
+        }
+
+        /* Category Colors */
         .category-ai { background: linear-gradient(135deg, #667eea, #764ba2); }
         .category-creative { background: linear-gradient(135deg, #f093fb, #f5576c); }
         .category-productivity { background: linear-gradient(135deg, #4facfe, #00f2fe); }
         .category-google { background: linear-gradient(135deg, #43e97b, #38f9d7); }
         .category-other { background: linear-gradient(135deg, #fa709a, #fee140); }
 
-        .potential-savings {
-            margin-top: 40px;
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal h2 {
+            color: #ccd6f6;
+            margin-bottom: 24px;
+            font-size: 1.4rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #8892b0;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #e94560;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .modal-actions button {
+            flex: 1;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .modal-actions .btn-save {
+            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            color: white;
+        }
+
+        .modal-actions .btn-close {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ccd6f6;
+        }
+
+        /* Savings Section */
+        .savings-section {
             background: rgba(100, 255, 218, 0.1);
             border: 1px solid rgba(100, 255, 218, 0.3);
             border-radius: 16px;
             padding: 24px;
+            margin-bottom: 30px;
         }
 
-        .potential-savings h2 {
+        .savings-section h2 {
             color: #64ffda;
             margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: 1.2rem;
         }
 
-        .savings-list {
-            display: grid;
+        .savings-summary {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .savings-stat {
+            text-align: center;
+        }
+
+        .savings-stat .label {
+            color: #8892b0;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+        }
+
+        .savings-stat .value {
+            color: #64ffda;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* To Cancel List */
+        .to-cancel-section {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 30px;
+        }
+
+        .to-cancel-section h2 {
+            color: #ffc107;
+            margin-bottom: 16px;
+            font-size: 1.2rem;
+        }
+
+        .to-cancel-list {
+            display: flex;
+            flex-wrap: wrap;
             gap: 12px;
         }
 
-        .savings-item {
+        .to-cancel-item {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 12px 16px;
+            gap: 8px;
+            padding: 8px 16px;
             background: rgba(0, 0, 0, 0.2);
             border-radius: 8px;
         }
 
-        .savings-item .suggestion {
+        .to-cancel-item .name {
             color: #ccd6f6;
         }
 
-        .savings-item .amount {
-            color: #64ffda;
+        .to-cancel-item .price {
+            color: #ffc107;
             font-weight: 600;
         }
 
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #8892b0;
+        }
+
+        .empty-state .icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        /* Footer */
         footer {
             text-align: center;
             margin-top: 40px;
@@ -266,24 +669,45 @@
             font-size: 0.9rem;
         }
 
-        .toggle-container {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 20px;
-        }
-
-        .toggle-btn {
-            padding: 8px 16px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: transparent;
-            color: #8892b0;
-            cursor: pointer;
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #64ffda;
+            color: #1a1a2e;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            transform: translateY(100px);
+            opacity: 0;
             transition: all 0.3s;
+            z-index: 2000;
         }
 
-        .toggle-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .subscription-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            
+            .sub-middle {
+                margin-right: 0;
+            }
+            
+            .sub-actions {
+                align-self: flex-end;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -291,29 +715,47 @@
     <div class="container">
         <header>
             <h1>💳 Subscription Tracker</h1>
-            <p class="subtitle">Kelly's Monthly Recurring Expenses</p>
+            <p class="subtitle">Kelly's Monthly Recurring Expenses • V2</p>
         </header>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <h3>Monthly Total</h3>
-                <div class="value">$793</div>
-                <div class="change">Avg from last 3 months</div>
+        <div class="actions-bar">
+            <button class="action-btn primary" onclick="openAddModal()">➕ Add Subscription</button>
+            <button class="action-btn secondary" onclick="exportCSV()">📥 Export CSV</button>
+            <button class="action-btn secondary" onclick="importCSV()">📤 Import CSV</button>
+            <input type="file" id="csvInput" accept=".csv" style="display:none" onchange="handleCSVImport(event)">
+        </div>
+
+        <div class="stats-grid" id="statsGrid">
+            <!-- Populated by JS -->
+        </div>
+
+        <div class="budget-section">
+            <div class="budget-header">
+                <h2>🎯 Monthly Budget</h2>
+                <button class="budget-edit" onclick="editBudget()">Edit Budget</button>
             </div>
-            <div class="stat-card">
-                <h3>Annual Projected</h3>
-                <div class="value">$9,516</div>
-                <div class="change">Based on current subs</div>
+            <div class="progress-container">
+                <div class="progress-bar" id="budgetProgress"></div>
+                <span class="progress-text" id="budgetText"></span>
             </div>
-            <div class="stat-card">
-                <h3>Active Subscriptions</h3>
-                <div class="value">17</div>
-                <div class="change">Across 5 categories</div>
+            <div class="budget-labels">
+                <span>$0</span>
+                <span id="budgetGoal">$500</span>
             </div>
-            <div class="stat-card">
-                <h3>Potential Savings</h3>
-                <div class="value" style="color: #64ffda;">$380</div>
-                <div class="change">If optimized</div>
+        </div>
+
+        <div class="to-cancel-section" id="toCancelSection" style="display:none">
+            <h2>⚠️ Marked for Cancellation</h2>
+            <div class="to-cancel-list" id="toCancelList"></div>
+            <div class="savings-summary" style="margin-top: 16px;">
+                <div class="savings-stat">
+                    <div class="label">Potential Monthly Savings</div>
+                    <div class="value" id="potentialSavings">$0</div>
+                </div>
+                <div class="savings-stat">
+                    <div class="label">Annual Savings</div>
+                    <div class="value" id="potentialAnnualSavings">$0</div>
+                </div>
             </div>
         </div>
 
@@ -329,15 +771,27 @@
         </div>
 
         <div class="subscriptions-section">
-            <h2>🔄 Active Subscriptions</h2>
+            <div class="section-header">
+                <h2>🔄 Active Subscriptions</h2>
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all">All</button>
+                    <button class="filter-tab" data-filter="ai">AI Tools</button>
+                    <button class="filter-tab" data-filter="creative">Creative</button>
+                    <button class="filter-tab" data-filter="productivity">Productivity</button>
+                    <button class="filter-tab" data-filter="google">Google/Apple</button>
+                    <button class="filter-tab" data-filter="other">Other</button>
+                </div>
+            </div>
             
-            <div class="filter-tabs">
-                <button class="filter-tab active" data-filter="all">All</button>
-                <button class="filter-tab" data-filter="ai">AI Tools</button>
-                <button class="filter-tab" data-filter="creative">Creative AI</button>
-                <button class="filter-tab" data-filter="productivity">Productivity</button>
-                <button class="filter-tab" data-filter="google">Google/Apple</button>
-                <button class="filter-tab" data-filter="other">Other</button>
+            <div class="search-filter-bar">
+                <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search subscriptions...">
+                <select class="sort-select" id="sortSelect">
+                    <option value="name">Sort by Name</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="billing">Billing Date</option>
+                    <option value="rating">Rating</option>
+                </select>
             </div>
 
             <div class="subscription-list" id="subscriptionList">
@@ -345,189 +799,561 @@
             </div>
         </div>
 
-        <div class="potential-savings">
-            <h2>💡 Potential Savings</h2>
-            <div class="savings-list">
-                <div class="savings-item">
-                    <span class="suggestion">Downgrade OpenAI Pro → Plus ($200 → $20)</span>
-                    <span class="amount">Save $180/mo</span>
-                </div>
-                <div class="savings-item">
-                    <span class="suggestion">Downgrade Claude Max → Pro ($120 → $20)</span>
-                    <span class="amount">Save $100/mo</span>
-                </div>
-                <div class="savings-item">
-                    <span class="suggestion">Cancel Perplexity (covered by ChatGPT/Claude)</span>
-                    <span class="amount">Save $10/mo</span>
-                </div>
-                <div class="savings-item">
-                    <span class="suggestion">Cancel Mem AI (overlap with Notion)</span>
-                    <span class="amount">Save $12/mo</span>
-                </div>
-                <div class="savings-item">
-                    <span class="suggestion">Cancel Loom (if not using regularly)</span>
-                    <span class="amount">Save $24/mo</span>
-                </div>
-                <div class="savings-item">
-                    <span class="suggestion">Cancel Gamma (Canva can do presentations)</span>
-                    <span class="amount">Save $20/mo</span>
-                </div>
-                <div class="savings-item">
-                    <span class="suggestion">Cancel Runway (overlap with Higgsfield)</span>
-                    <span class="amount">Save $15/mo</span>
-                </div>
-            </div>
-        </div>
-
         <footer>
-            <p>Data from bank statement • Last updated: February 10, 2026</p>
+            <p>Data saved locally in your browser • Last updated: <span id="lastUpdated"></span></p>
             <p>Built with 🦉 by Kip</p>
         </footer>
     </div>
 
-    <script>
-        // Subscription data
-        const subscriptions = [
-            { name: 'OpenAI ChatGPT', category: 'ai', price: 200, icon: '🤖', color: 'category-ai', note: 'Pro Plan' },
-            { name: 'Claude.AI (Anthropic)', category: 'ai', price: 120, icon: '🧠', color: 'category-ai', note: 'Pro + Max' },
-            { name: 'Perplexity', category: 'ai', price: 10, icon: '🔍', color: 'category-ai', note: 'Pro' },
-            { name: 'Anthropic API', category: 'ai', price: 5, icon: '⚡', color: 'category-ai', note: 'Usage' },
-            { name: 'Higgsfield', category: 'creative', price: 80, icon: '🎬', color: 'category-creative', note: 'Video AI' },
-            { name: 'Suno', category: 'creative', price: 10.73, icon: '🎵', color: 'category-creative', note: 'Music AI' },
-            { name: 'Runway', category: 'creative', price: 15, icon: '🎥', color: 'category-creative', note: 'Video Gen' },
-            { name: 'Notion', category: 'productivity', price: 24, icon: '📝', color: 'category-productivity', note: 'Team' },
-            { name: 'Canva', category: 'productivity', price: 14.99, icon: '🎨', color: 'category-productivity', note: 'Pro' },
-            { name: 'Loom', category: 'productivity', price: 24, icon: '📹', color: 'category-productivity', note: 'Business' },
-            { name: 'Gamma.app', category: 'productivity', price: 20, icon: '📊', color: 'category-productivity', note: 'Presentations' },
-            { name: 'Adobe Creative', category: 'productivity', price: 69.99, icon: '🅰️', color: 'category-productivity', note: 'Cloud' },
-            { name: 'Obsidian', category: 'productivity', price: 5, icon: '💎', color: 'category-productivity', note: 'Sync' },
-            { name: 'Mem AI', category: 'productivity', price: 12, icon: '🧩', color: 'category-productivity', note: 'Notes' },
-            { name: 'Google Workspace', category: 'google', price: 67, icon: '🔵', color: 'category-google', note: 'YouTube + Storage' },
-            { name: 'Apple Services', category: 'google', price: 35, icon: '🍎', color: 'category-google', note: 'Various' },
-            { name: 'Takeover Media', category: 'other', price: 7, icon: '📺', color: 'category-other', note: '' },
-        ];
-
-        // Calculate totals
-        const categoryTotals = {
-            ai: subscriptions.filter(s => s.category === 'ai').reduce((sum, s) => sum + s.price, 0),
-            creative: subscriptions.filter(s => s.category === 'creative').reduce((sum, s) => sum + s.price, 0),
-            productivity: subscriptions.filter(s => s.category === 'productivity').reduce((sum, s) => sum + s.price, 0),
-            google: subscriptions.filter(s => s.category === 'google').reduce((sum, s) => sum + s.price, 0),
-            other: subscriptions.filter(s => s.category === 'other').reduce((sum, s) => sum + s.price, 0),
-        };
-
-        // Category Chart
-        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
-        new Chart(categoryCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['AI Tools', 'Creative AI', 'Productivity', 'Google/Apple', 'Other'],
-                datasets: [{
-                    data: [categoryTotals.ai, categoryTotals.creative, categoryTotals.productivity, categoryTotals.google, categoryTotals.other],
-                    backgroundColor: [
-                        'rgba(102, 126, 234, 0.8)',
-                        'rgba(240, 147, 251, 0.8)',
-                        'rgba(79, 172, 254, 0.8)',
-                        'rgba(67, 233, 123, 0.8)',
-                        'rgba(250, 112, 154, 0.8)',
-                    ],
-                    borderColor: [
-                        'rgba(102, 126, 234, 1)',
-                        'rgba(240, 147, 251, 1)',
-                        'rgba(79, 172, 254, 1)',
-                        'rgba(67, 233, 123, 1)',
-                        'rgba(250, 112, 154, 1)',
-                    ],
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            color: '#8892b0',
-                            padding: 20,
-                            font: { size: 12 }
-                        }
-                    }
-                }
-            }
-        });
-
-        // Trend Chart
-        const trendCtx = document.getElementById('trendChart').getContext('2d');
-        new Chart(trendCtx, {
-            type: 'line',
-            data: {
-                labels: ['Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb'],
-                datasets: [{
-                    label: 'Monthly Spend',
-                    data: [720, 780, 850, 790, 810, 793],
-                    borderColor: '#e94560',
-                    backgroundColor: 'rgba(233, 69, 96, 0.1)',
-                    fill: true,
-                    tension: 0.4,
-                    pointBackgroundColor: '#e94560',
-                    pointBorderColor: '#fff',
-                    pointBorderWidth: 2,
-                    pointRadius: 5
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: false,
-                        min: 500,
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
-                        },
-                        ticks: {
-                            color: '#8892b0',
-                            callback: value => '$' + value
-                        }
-                    },
-                    x: {
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
-                        },
-                        ticks: {
-                            color: '#8892b0'
-                        }
-                    }
-                }
-            }
-        });
-
-        // Render subscription list
-        function renderSubscriptions(filter = 'all') {
-            const list = document.getElementById('subscriptionList');
-            const filtered = filter === 'all' 
-                ? subscriptions 
-                : subscriptions.filter(s => s.category === filter);
-            
-            list.innerHTML = filtered.map(sub => `
-                <div class="subscription-item" data-category="${sub.category}">
-                    <div class="sub-info">
-                        <div class="sub-icon ${sub.color}">${sub.icon}</div>
-                        <div class="sub-details">
-                            <h4>${sub.name}</h4>
-                            <span>${sub.note}</span>
-                        </div>
+    <!-- Add/Edit Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <h2 id="modalTitle">Add Subscription</h2>
+            <form id="subscriptionForm">
+                <input type="hidden" id="editId">
+                
+                <div class="form-group">
+                    <label>Subscription Name *</label>
+                    <input type="text" id="subName" required placeholder="e.g., Netflix">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Monthly Price *</label>
+                        <input type="number" id="subPrice" step="0.01" required placeholder="9.99">
                     </div>
-                    <div class="sub-price">
-                        <div class="amount">$${sub.price.toFixed(2)}</div>
-                        <div class="period">/month</div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="subCategory">
+                            <option value="ai">AI Tools</option>
+                            <option value="creative">Creative AI</option>
+                            <option value="productivity">Productivity</option>
+                            <option value="google">Google/Apple</option>
+                            <option value="other">Other</option>
+                        </select>
                     </div>
                 </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Billing Date (day of month)</label>
+                        <input type="number" id="subBillingDay" min="1" max="31" placeholder="15">
+                    </div>
+                    <div class="form-group">
+                        <label>Icon (emoji)</label>
+                        <input type="text" id="subIcon" placeholder="🎬" maxlength="2">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Notes</label>
+                    <input type="text" id="subNote" placeholder="e.g., Pro Plan">
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn-close" onclick="closeModal()">Cancel</button>
+                    <button type="submit" class="btn-save">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Budget Modal -->
+    <div class="modal-overlay" id="budgetModalOverlay">
+        <div class="modal">
+            <h2>Set Monthly Budget</h2>
+            <form id="budgetForm">
+                <div class="form-group">
+                    <label>Monthly Budget Goal ($)</label>
+                    <input type="number" id="budgetInput" step="1" required placeholder="500">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-close" onclick="closeBudgetModal()">Cancel</button>
+                    <button type="submit" class="btn-save">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Default subscription data
+        const defaultSubscriptions = [
+            { id: 1, name: 'OpenAI ChatGPT', category: 'ai', price: 200, icon: '🤖', note: 'Pro Plan', billingDay: 12, rating: 5, status: 'active' },
+            { id: 2, name: 'Claude.AI (Anthropic)', category: 'ai', price: 120, icon: '🧠', note: 'Pro + Max', billingDay: 26, rating: 5, status: 'active' },
+            { id: 3, name: 'Perplexity', category: 'ai', price: 10, icon: '🔍', note: 'Pro', billingDay: 4, rating: 3, status: 'active' },
+            { id: 4, name: 'Anthropic API', category: 'ai', price: 5, icon: '⚡', note: 'Usage', billingDay: 3, rating: 4, status: 'active' },
+            { id: 5, name: 'Higgsfield', category: 'creative', price: 80, icon: '🎬', note: 'Video AI', billingDay: 2, rating: 4, status: 'active' },
+            { id: 6, name: 'Suno', category: 'creative', price: 10.73, icon: '🎵', note: 'Music AI', billingDay: 7, rating: 4, status: 'active' },
+            { id: 7, name: 'Runway', category: 'creative', price: 15, icon: '🎥', note: 'Video Gen', billingDay: 9, rating: 3, status: 'active' },
+            { id: 8, name: 'Notion', category: 'productivity', price: 24, icon: '📝', note: 'Team', billingDay: 3, rating: 5, status: 'active' },
+            { id: 9, name: 'Canva', category: 'productivity', price: 14.99, icon: '🎨', note: 'Pro', billingDay: 5, rating: 4, status: 'active' },
+            { id: 10, name: 'Loom', category: 'productivity', price: 24, icon: '📹', note: 'Business', billingDay: 6, rating: 2, status: 'active' },
+            { id: 11, name: 'Gamma.app', category: 'productivity', price: 20, icon: '📊', note: 'Presentations', billingDay: 15, rating: 3, status: 'active' },
+            { id: 12, name: 'Adobe Creative', category: 'productivity', price: 69.99, icon: '🅰️', note: 'Cloud', billingDay: 13, rating: 4, status: 'active' },
+            { id: 13, name: 'Obsidian', category: 'productivity', price: 5, icon: '💎', note: 'Sync', billingDay: 8, rating: 4, status: 'active' },
+            { id: 14, name: 'Mem AI', category: 'productivity', price: 12, icon: '🧩', note: 'Notes', billingDay: 14, rating: 2, status: 'active' },
+            { id: 15, name: 'Google Workspace', category: 'google', price: 67, icon: '🔵', note: 'YouTube + Storage', billingDay: 1, rating: 5, status: 'active' },
+            { id: 16, name: 'Apple Services', category: 'google', price: 35, icon: '🍎', note: 'Various', billingDay: 22, rating: 4, status: 'active' },
+            { id: 17, name: 'Takeover Media', category: 'other', price: 7, icon: '📺', note: '', billingDay: 1, rating: 3, status: 'active' },
+        ];
+
+        // State
+        let subscriptions = [];
+        let budget = 500;
+        let currentFilter = 'all';
+        let categoryChart = null;
+        let trendChart = null;
+
+        // Load from localStorage or use defaults
+        function loadData() {
+            const saved = localStorage.getItem('subscriptions');
+            const savedBudget = localStorage.getItem('budget');
+            
+            if (saved) {
+                subscriptions = JSON.parse(saved);
+            } else {
+                subscriptions = [...defaultSubscriptions];
+                saveData();
+            }
+            
+            if (savedBudget) {
+                budget = parseFloat(savedBudget);
+            }
+        }
+
+        // Save to localStorage
+        function saveData() {
+            localStorage.setItem('subscriptions', JSON.stringify(subscriptions));
+            localStorage.setItem('budget', budget.toString());
+            document.getElementById('lastUpdated').textContent = new Date().toLocaleString();
+        }
+
+        // Calculate stats
+        function getStats() {
+            const active = subscriptions.filter(s => s.status === 'active');
+            const toCancel = subscriptions.filter(s => s.status === 'to-cancel');
+            const cancelled = subscriptions.filter(s => s.status === 'cancelled');
+            
+            const monthlyTotal = active.reduce((sum, s) => sum + s.price, 0);
+            const toCancelTotal = toCancel.reduce((sum, s) => sum + s.price, 0);
+            const cancelledTotal = cancelled.reduce((sum, s) => sum + s.price, 0);
+            
+            return {
+                monthlyTotal,
+                annualTotal: monthlyTotal * 12,
+                activeCount: active.length,
+                toCancelTotal,
+                cancelledTotal,
+                categories: {
+                    ai: active.filter(s => s.category === 'ai').reduce((sum, s) => sum + s.price, 0),
+                    creative: active.filter(s => s.category === 'creative').reduce((sum, s) => sum + s.price, 0),
+                    productivity: active.filter(s => s.category === 'productivity').reduce((sum, s) => sum + s.price, 0),
+                    google: active.filter(s => s.category === 'google').reduce((sum, s) => sum + s.price, 0),
+                    other: active.filter(s => s.category === 'other').reduce((sum, s) => sum + s.price, 0),
+                }
+            };
+        }
+
+        // Render stats cards
+        function renderStats() {
+            const stats = getStats();
+            document.getElementById('statsGrid').innerHTML = `
+                <div class="stat-card">
+                    <h3>Monthly Total</h3>
+                    <div class="value">$${stats.monthlyTotal.toFixed(2)}</div>
+                    <div class="change">${stats.activeCount} active subscriptions</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Annual Projected</h3>
+                    <div class="value">$${stats.annualTotal.toFixed(2)}</div>
+                    <div class="change">Based on current subs</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Budget Remaining</h3>
+                    <div class="value" style="color: ${budget - stats.monthlyTotal >= 0 ? '#64ffda' : '#e94560'}">
+                        $${(budget - stats.monthlyTotal).toFixed(2)}
+                    </div>
+                    <div class="change">${budget - stats.monthlyTotal >= 0 ? 'Under budget! 🎉' : 'Over budget ⚠️'}</div>
+                </div>
+                <div class="stat-card savings">
+                    <h3>Total Cancelled</h3>
+                    <div class="value">$${stats.cancelledTotal.toFixed(2)}/mo</div>
+                    <div class="change">$${(stats.cancelledTotal * 12).toFixed(2)} saved annually</div>
+                </div>
+            `;
+            
+            // Budget progress
+            const percentage = Math.min((stats.monthlyTotal / budget) * 100, 100);
+            const progressBar = document.getElementById('budgetProgress');
+            progressBar.style.width = percentage + '%';
+            progressBar.className = 'progress-bar' + (stats.monthlyTotal > budget ? ' over-budget' : '');
+            document.getElementById('budgetText').textContent = `$${stats.monthlyTotal.toFixed(0)} / $${budget}`;
+            document.getElementById('budgetGoal').textContent = `$${budget}`;
+        }
+
+        // Render to-cancel section
+        function renderToCancel() {
+            const toCancel = subscriptions.filter(s => s.status === 'to-cancel');
+            const section = document.getElementById('toCancelSection');
+            
+            if (toCancel.length === 0) {
+                section.style.display = 'none';
+                return;
+            }
+            
+            section.style.display = 'block';
+            const total = toCancel.reduce((sum, s) => sum + s.price, 0);
+            
+            document.getElementById('toCancelList').innerHTML = toCancel.map(s => `
+                <div class="to-cancel-item">
+                    <span>${s.icon}</span>
+                    <span class="name">${s.name}</span>
+                    <span class="price">$${s.price.toFixed(2)}</span>
+                </div>
             `).join('');
+            
+            document.getElementById('potentialSavings').textContent = `$${total.toFixed(2)}`;
+            document.getElementById('potentialAnnualSavings').textContent = `$${(total * 12).toFixed(2)}`;
+        }
+
+        // Get days until billing
+        function getDaysUntilBilling(billingDay) {
+            if (!billingDay) return null;
+            const today = new Date();
+            const currentDay = today.getDate();
+            const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+            
+            if (billingDay >= currentDay) {
+                return billingDay - currentDay;
+            } else {
+                return daysInMonth - currentDay + billingDay;
+            }
+        }
+
+        // Render subscription list
+        function renderSubscriptions() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const sortBy = document.getElementById('sortSelect').value;
+            
+            let filtered = subscriptions.filter(s => {
+                if (currentFilter !== 'all' && s.category !== currentFilter) return false;
+                if (searchTerm && !s.name.toLowerCase().includes(searchTerm)) return false;
+                return true;
+            });
+            
+            // Sort
+            filtered.sort((a, b) => {
+                switch (sortBy) {
+                    case 'price-high': return b.price - a.price;
+                    case 'price-low': return a.price - b.price;
+                    case 'billing': return (a.billingDay || 32) - (b.billingDay || 32);
+                    case 'rating': return (b.rating || 0) - (a.rating || 0);
+                    default: return a.name.localeCompare(b.name);
+                }
+            });
+            
+            const list = document.getElementById('subscriptionList');
+            
+            if (filtered.length === 0) {
+                list.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">📭</div>
+                        <p>No subscriptions found</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            list.innerHTML = filtered.map(sub => {
+                const daysUntil = getDaysUntilBilling(sub.billingDay);
+                const billingText = daysUntil !== null 
+                    ? `<span class="billing-date ${daysUntil <= 3 ? 'due-soon' : ''}">• Due in ${daysUntil} days</span>`
+                    : '';
+                
+                const statusClass = sub.status === 'to-cancel' ? 'to-cancel' : (sub.status === 'cancelled' ? 'cancelled' : '');
+                
+                return `
+                    <div class="subscription-item ${statusClass}" data-id="${sub.id}">
+                        <div class="sub-info">
+                            <div class="sub-icon category-${sub.category}">${sub.icon || '📦'}</div>
+                            <div class="sub-details">
+                                <h4>${sub.name}</h4>
+                                <span>${sub.note || sub.category} ${billingText}</span>
+                            </div>
+                        </div>
+                        <div class="sub-middle">
+                            <div class="rating">
+                                ${[1,2,3,4,5].map(i => `
+                                    <span class="${i <= (sub.rating || 0) ? 'active' : ''}" 
+                                          onclick="setRating(${sub.id}, ${i})">⭐</span>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div class="sub-price">
+                            <div class="amount">$${sub.price.toFixed(2)}</div>
+                            <div class="period">/month</div>
+                        </div>
+                        <div class="sub-actions">
+                            <button class="btn-edit" onclick="editSubscription(${sub.id})" title="Edit">✏️</button>
+                            ${sub.status === 'active' 
+                                ? `<button class="btn-cancel" onclick="markToCancel(${sub.id})" title="Mark for cancellation">⚠️</button>`
+                                : sub.status === 'to-cancel'
+                                    ? `<button class="btn-restore" onclick="restoreSubscription(${sub.id})" title="Restore">✅</button>`
+                                    : `<button class="btn-restore" onclick="restoreSubscription(${sub.id})" title="Restore">♻️</button>`
+                            }
+                            <button class="btn-delete" onclick="deleteSubscription(${sub.id})" title="Delete">🗑️</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Render charts
+        function renderCharts() {
+            const stats = getStats();
+            
+            // Destroy existing charts
+            if (categoryChart) categoryChart.destroy();
+            if (trendChart) trendChart.destroy();
+            
+            // Category Chart
+            const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+            categoryChart = new Chart(categoryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['AI Tools', 'Creative AI', 'Productivity', 'Google/Apple', 'Other'],
+                    datasets: [{
+                        data: [
+                            stats.categories.ai,
+                            stats.categories.creative,
+                            stats.categories.productivity,
+                            stats.categories.google,
+                            stats.categories.other
+                        ],
+                        backgroundColor: [
+                            'rgba(102, 126, 234, 0.8)',
+                            'rgba(240, 147, 251, 0.8)',
+                            'rgba(79, 172, 254, 0.8)',
+                            'rgba(67, 233, 123, 0.8)',
+                            'rgba(250, 112, 154, 0.8)',
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#8892b0', padding: 15, font: { size: 11 } }
+                        }
+                    }
+                }
+            });
+
+            // Trend Chart (mock data based on current)
+            const base = stats.monthlyTotal;
+            const trendCtx = document.getElementById('trendChart').getContext('2d');
+            trendChart = new Chart(trendCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb'],
+                    datasets: [{
+                        label: 'Monthly Spend',
+                        data: [base * 0.92, base * 0.95, base * 1.02, base * 0.98, base * 1.01, base],
+                        borderColor: '#e94560',
+                        backgroundColor: 'rgba(233, 69, 96, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: '#e94560',
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: {
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { color: '#8892b0', callback: v => '$' + v.toFixed(0) }
+                        },
+                        x: {
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { color: '#8892b0' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Modal functions
+        function openAddModal() {
+            document.getElementById('modalTitle').textContent = 'Add Subscription';
+            document.getElementById('subscriptionForm').reset();
+            document.getElementById('editId').value = '';
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function editSubscription(id) {
+            const sub = subscriptions.find(s => s.id === id);
+            if (!sub) return;
+            
+            document.getElementById('modalTitle').textContent = 'Edit Subscription';
+            document.getElementById('editId').value = id;
+            document.getElementById('subName').value = sub.name;
+            document.getElementById('subPrice').value = sub.price;
+            document.getElementById('subCategory').value = sub.category;
+            document.getElementById('subBillingDay').value = sub.billingDay || '';
+            document.getElementById('subIcon').value = sub.icon || '';
+            document.getElementById('subNote').value = sub.note || '';
+            
+            document.getElementById('modalOverlay').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+        }
+
+        function editBudget() {
+            document.getElementById('budgetInput').value = budget;
+            document.getElementById('budgetModalOverlay').classList.add('active');
+        }
+
+        function closeBudgetModal() {
+            document.getElementById('budgetModalOverlay').classList.remove('active');
+        }
+
+        // Form handlers
+        document.getElementById('subscriptionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const editId = document.getElementById('editId').value;
+            const newSub = {
+                id: editId ? parseInt(editId) : Date.now(),
+                name: document.getElementById('subName').value,
+                price: parseFloat(document.getElementById('subPrice').value),
+                category: document.getElementById('subCategory').value,
+                billingDay: parseInt(document.getElementById('subBillingDay').value) || null,
+                icon: document.getElementById('subIcon').value || '📦',
+                note: document.getElementById('subNote').value,
+                rating: 0,
+                status: 'active'
+            };
+            
+            if (editId) {
+                const index = subscriptions.findIndex(s => s.id === parseInt(editId));
+                if (index !== -1) {
+                    newSub.rating = subscriptions[index].rating;
+                    newSub.status = subscriptions[index].status;
+                    subscriptions[index] = newSub;
+                }
+                showToast('Subscription updated!');
+            } else {
+                subscriptions.push(newSub);
+                showToast('Subscription added!');
+            }
+            
+            saveData();
+            renderAll();
+            closeModal();
+        });
+
+        document.getElementById('budgetForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            budget = parseFloat(document.getElementById('budgetInput').value);
+            saveData();
+            renderAll();
+            closeBudgetModal();
+            showToast('Budget updated!');
+        });
+
+        // Actions
+        function setRating(id, rating) {
+            const sub = subscriptions.find(s => s.id === id);
+            if (sub) {
+                sub.rating = rating;
+                saveData();
+                renderSubscriptions();
+            }
+        }
+
+        function markToCancel(id) {
+            const sub = subscriptions.find(s => s.id === id);
+            if (sub) {
+                sub.status = 'to-cancel';
+                saveData();
+                renderAll();
+                showToast('Marked for cancellation');
+            }
+        }
+
+        function restoreSubscription(id) {
+            const sub = subscriptions.find(s => s.id === id);
+            if (sub) {
+                sub.status = 'active';
+                saveData();
+                renderAll();
+                showToast('Subscription restored');
+            }
+        }
+
+        function deleteSubscription(id) {
+            if (confirm('Delete this subscription?')) {
+                subscriptions = subscriptions.filter(s => s.id !== id);
+                saveData();
+                renderAll();
+                showToast('Subscription deleted');
+            }
+        }
+
+        // Export/Import
+        function exportCSV() {
+            const headers = ['Name', 'Category', 'Price', 'Billing Day', 'Rating', 'Status', 'Note'];
+            const rows = subscriptions.map(s => [
+                s.name,
+                s.category,
+                s.price,
+                s.billingDay || '',
+                s.rating || 0,
+                s.status,
+                s.note || ''
+            ]);
+            
+            const csv = [headers, ...rows].map(row => row.join(',')).join('\n');
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'subscriptions.csv';
+            a.click();
+            showToast('Exported to CSV!');
+        }
+
+        function importCSV() {
+            document.getElementById('csvInput').click();
+        }
+
+        function handleCSVImport(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                // Simple CSV parsing - could be enhanced
+                showToast('Import feature coming soon!');
+            };
+            reader.readAsText(file);
+        }
+
+        // Toast
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
         // Filter tabs
@@ -535,12 +1361,26 @@
             tab.addEventListener('click', () => {
                 document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
-                renderSubscriptions(tab.dataset.filter);
+                currentFilter = tab.dataset.filter;
+                renderSubscriptions();
             });
         });
 
-        // Initial render
-        renderSubscriptions();
+        // Search and sort
+        document.getElementById('searchInput').addEventListener('input', renderSubscriptions);
+        document.getElementById('sortSelect').addEventListener('change', renderSubscriptions);
+
+        // Render all
+        function renderAll() {
+            renderStats();
+            renderToCancel();
+            renderSubscriptions();
+            renderCharts();
+        }
+
+        // Initialize
+        loadData();
+        renderAll();
     </script>
 </body>
 </html>
