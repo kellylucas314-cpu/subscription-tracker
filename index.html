@@ -29,14 +29,16 @@
             --purple-light: #EDE9FE;
             --pink: #F687B3;
             --pink-light: #FEF0F5;
+            --blue: #63B3ED;
+            --blue-light: #EBF8FF;
+            --green: #68D391;
+            --green-light: #F0FFF4;
             --border: #E2E8F0;
             --shadow: 0 2px 8px rgba(0,0,0,0.06);
             --shadow-lg: 0 4px 16px rgba(0,0,0,0.08);
         }
 
-        html, body {
-            overflow-x: hidden;
-        }
+        html, body { overflow-x: hidden; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -47,10 +49,31 @@
             padding-bottom: 100px;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        /* Custom Icons */
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
+
+        .icon-box svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .icon-box.coral { background: linear-gradient(135deg, #FDEEE4, #FCE0CF); }
+        .icon-box.teal { background: var(--teal-light); }
+        .icon-box.gold { background: var(--gold-light); }
+        .icon-box.purple { background: var(--purple-light); }
+        .icon-box.pink { background: var(--pink-light); }
+        .icon-box.blue { background: var(--blue-light); }
+        .icon-box.green { background: var(--green-light); }
 
         /* Header */
         header {
@@ -66,15 +89,17 @@
         }
 
         .logo-icon {
-            width: 48px;
-            height: 48px;
+            width: 52px;
+            height: 52px;
             background: linear-gradient(135deg, var(--coral), var(--gold));
-            border-radius: 12px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(246,173,123,0.3);
         }
+
+        .logo-icon svg { width: 32px; height: 32px; }
 
         h1 {
             font-size: 1.6rem;
@@ -107,8 +132,10 @@
             transition: all 0.2s;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
+
+        .top-btn svg { width: 18px; height: 18px; }
 
         .top-btn:hover {
             border-color: var(--coral);
@@ -132,21 +159,6 @@
             align-items: center;
             gap: 12px;
         }
-
-        .stat-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-        }
-
-        .stat-icon.coral { background: linear-gradient(135deg, #FDEEE4, #FCE0CF); }
-        .stat-icon.teal { background: var(--teal-light); }
-        .stat-icon.gold { background: var(--gold-light); }
-        .stat-icon.purple { background: var(--purple-light); }
 
         .stat-info h3 {
             color: var(--text-light);
@@ -191,16 +203,8 @@
             gap: 10px;
         }
 
-        .budget-title .icon {
-            width: 36px;
-            height: 36px;
-            background: var(--gold-light);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-        }
+        .budget-title .icon-box { width: 36px; height: 36px; }
+        .budget-title .icon-box svg { width: 20px; height: 20px; }
 
         .budget-title h2 {
             font-size: 1rem;
@@ -262,15 +266,8 @@
             margin-bottom: 12px;
         }
 
-        .cancel-header .icon {
-            width: 32px;
-            height: 32px;
-            background: #FFD4B8;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .cancel-header .icon-box { width: 32px; height: 32px; background: #FFD4B8; }
+        .cancel-header .icon-box svg { width: 18px; height: 18px; }
 
         .cancel-header h2 {
             font-size: 1rem;
@@ -341,15 +338,8 @@
             margin-bottom: 12px;
         }
 
-        .chart-header .icon {
-            width: 28px;
-            height: 28px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-        }
+        .chart-header .icon-box { width: 28px; height: 28px; border-radius: 8px; }
+        .chart-header .icon-box svg { width: 16px; height: 16px; }
 
         .chart-header h2 {
             font-size: 0.9rem;
@@ -364,9 +354,7 @@
             box-shadow: var(--shadow);
         }
 
-        .subs-header {
-            margin-bottom: 16px;
-        }
+        .subs-header { margin-bottom: 16px; }
 
         .subs-title {
             display: flex;
@@ -375,16 +363,8 @@
             margin-bottom: 14px;
         }
 
-        .subs-title .icon {
-            width: 36px;
-            height: 36px;
-            background: var(--purple-light);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-        }
+        .subs-title .icon-box { width: 36px; height: 36px; }
+        .subs-title .icon-box svg { width: 20px; height: 20px; }
 
         .subs-title h2 {
             font-size: 1rem;
@@ -449,9 +429,13 @@
             border: 2px solid var(--border);
             background: var(--card);
             color: var(--text-light);
-            font-size: 1rem;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+
+        .sort-btn svg { width: 20px; height: 20px; }
 
         /* Subscription List */
         .sub-list {
@@ -468,9 +452,7 @@
             border: 2px solid transparent;
         }
 
-        .sub-item:hover {
-            border-color: var(--border);
-        }
+        .sub-item:hover { border-color: var(--border); }
 
         .sub-item.marked {
             background: #FFF8F0;
@@ -490,9 +472,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
             flex-shrink: 0;
         }
+
+        .sub-icon svg { width: 26px; height: 26px; }
 
         .cat-ai { background: linear-gradient(135deg, #EDE9FE, #DDD6FE); }
         .cat-creative { background: linear-gradient(135deg, #FEF0F5, #FBCFE8); }
@@ -547,40 +530,46 @@
             border-top: 1px solid var(--border);
         }
 
-        .stars {
-            display: flex;
-            gap: 2px;
-        }
+        .stars { display: flex; gap: 2px; }
 
         .stars span {
-            font-size: 1rem;
-            opacity: 0.3;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
+            opacity: 0.3;
         }
 
         .stars span.on { opacity: 1; }
+        .stars span svg { width: 18px; height: 18px; }
 
-        .action-btns {
-            display: flex;
-            gap: 6px;
-        }
+        .action-btns { display: flex; gap: 6px; }
 
         .action-btns button {
             width: 36px;
             height: 36px;
             border-radius: 10px;
             border: none;
-            font-size: 0.9rem;
             cursor: pointer;
             transition: transform 0.1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
+        .action-btns button svg { width: 18px; height: 18px; }
         .action-btns button:active { transform: scale(0.95); }
 
-        .btn-edit { background: #E0F2FE; color: #0284C7; }
-        .btn-warn { background: #FEF3C7; color: #D97706; }
-        .btn-del { background: #FEE2E2; color: #DC2626; }
-        .btn-ok { background: #D1FAE5; color: #059669; }
+        .btn-edit { background: #E0F2FE; }
+        .btn-edit svg { stroke: #0284C7; }
+        .btn-warn { background: #FEF3C7; }
+        .btn-warn svg { stroke: #D97706; }
+        .btn-del { background: #FEE2E2; }
+        .btn-del svg { stroke: #DC2626; }
+        .btn-ok { background: #D1FAE5; }
+        .btn-ok svg { stroke: #059669; }
 
         /* FAB */
         .fab {
@@ -593,7 +582,6 @@
             background: linear-gradient(135deg, var(--coral), var(--coral-dark));
             border: none;
             color: white;
-            font-size: 2rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -601,6 +589,8 @@
             cursor: pointer;
             z-index: 100;
         }
+
+        .fab svg { width: 28px; height: 28px; }
 
         /* Modal */
         .modal-overlay {
@@ -635,9 +625,13 @@
             background: var(--bg);
             border: none;
             color: var(--text-light);
-            font-size: 1.2rem;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+
+        .modal-close svg { width: 20px; height: 20px; }
 
         .modal-box h2 {
             font-size: 1.2rem;
@@ -645,9 +639,7 @@
             margin-bottom: 20px;
         }
 
-        .field {
-            margin-bottom: 16px;
-        }
+        .field { margin-bottom: 16px; }
 
         .field label {
             display: block;
@@ -765,7 +757,7 @@
             color: var(--text-light);
         }
 
-        .empty .icon { font-size: 2.5rem; margin-bottom: 12px; }
+        .empty svg { width: 48px; height: 48px; margin-bottom: 12px; opacity: 0.5; }
 
         footer {
             text-align: center;
@@ -779,10 +771,12 @@
             body { padding: 40px; }
             header { margin-bottom: 32px; }
             h1 { font-size: 2rem; }
-            .logo-icon { width: 56px; height: 56px; font-size: 1.8rem; }
+            .logo-icon { width: 60px; height: 60px; }
+            .logo-icon svg { width: 36px; height: 36px; }
             .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
             .stat-card { padding: 20px; }
-            .stat-icon { width: 56px; height: 56px; font-size: 1.6rem; }
+            .icon-box { width: 56px; height: 56px; }
+            .icon-box svg { width: 32px; height: 32px; }
             .stat-info .value { font-size: 1.6rem; }
             .budget-card, .cancel-card, .subs-card { padding: 24px; }
             .charts-row { gap: 20px; }
@@ -790,7 +784,9 @@
             .sub-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
             .sub-item { padding: 18px; }
             .sub-icon { width: 52px; height: 52px; }
-            .fab { width: 70px; height: 70px; font-size: 2.2rem; }
+            .sub-icon svg { width: 30px; height: 30px; }
+            .fab { width: 70px; height: 70px; }
+            .fab svg { width: 32px; height: 32px; }
         }
 
         @media (min-width: 1200px) {
@@ -799,18 +795,165 @@
     </style>
 </head>
 <body>
+    <!-- SVG Definitions -->
+    <svg style="display:none">
+        <defs>
+            <!-- Wallet/Money -->
+            <symbol id="icon-wallet" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" stroke="#E8956A"/>
+                <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" stroke="#E8956A"/>
+                <circle cx="18" cy="12" r="2" fill="#F6C744" stroke="#E8956A"/>
+            </symbol>
+            <!-- Calendar -->
+            <symbol id="icon-calendar" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" fill="#E8F8F8" stroke="#5AC8C8"/>
+                <line x1="3" y1="10" x2="21" y2="10" stroke="#5AC8C8"/>
+                <line x1="8" y1="2" x2="8" y2="6" stroke="#5AC8C8"/>
+                <line x1="16" y1="2" x2="16" y2="6" stroke="#5AC8C8"/>
+                <circle cx="12" cy="15" r="2" fill="#5AC8C8"/>
+            </symbol>
+            <!-- Target -->
+            <symbol id="icon-target" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" fill="#FEF9E7" stroke="#F6C744"/>
+                <circle cx="12" cy="12" r="6" fill="#FEF3C7" stroke="#F6C744"/>
+                <circle cx="12" cy="12" r="2" fill="#F6C744" stroke="#E8956A"/>
+            </symbol>
+            <!-- Scissors -->
+            <symbol id="icon-scissors" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="6" cy="6" r="3" fill="#EDE9FE" stroke="#7C6AEF"/>
+                <circle cx="6" cy="18" r="3" fill="#EDE9FE" stroke="#7C6AEF"/>
+                <line x1="20" y1="4" x2="8.12" y2="15.88" stroke="#7C6AEF"/>
+                <line x1="14.47" y1="14.48" x2="20" y2="20" stroke="#7C6AEF"/>
+                <line x1="8.12" y1="8.12" x2="12" y2="12" stroke="#7C6AEF"/>
+            </symbol>
+            <!-- Chart Pie -->
+            <symbol id="icon-pie" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2a10 10 0 1 0 10 10H12V2z" fill="#EDE9FE" stroke="#7C6AEF"/>
+                <path d="M12 2a10 10 0 0 1 10 10h-10V2z" fill="#F687B3" stroke="#7C6AEF"/>
+            </symbol>
+            <!-- Chart Line -->
+            <symbol id="icon-trend" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" fill="#E8F8F8" stroke="#5AC8C8"/>
+                <path d="M7 14l3-3 2 2 5-5" stroke="#5AC8C8" stroke-width="2"/>
+                <circle cx="17" cy="8" r="2" fill="#F6C744" stroke="#E8956A"/>
+            </symbol>
+            <!-- Refresh/Cycle -->
+            <symbol id="icon-refresh" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12a9 9 0 1 1-3-6.7" stroke="#7C6AEF"/>
+                <path d="M21 3v6h-6" stroke="#7C6AEF"/>
+                <circle cx="12" cy="12" r="3" fill="#EDE9FE" stroke="#7C6AEF"/>
+            </symbol>
+            <!-- Download -->
+            <symbol id="icon-download" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor"/>
+                <polyline points="7,10 12,15 17,10" stroke="currentColor"/>
+                <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor"/>
+            </symbol>
+            <!-- Edit Pencil -->
+            <symbol id="icon-edit" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
+            </symbol>
+            <!-- Warning -->
+            <symbol id="icon-warn" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </symbol>
+            <!-- Trash -->
+            <symbol id="icon-trash" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3,6 5,6 21,6"/>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+            </symbol>
+            <!-- Check -->
+            <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20,6 9,17 4,12"/>
+            </symbol>
+            <!-- Plus -->
+            <symbol id="icon-plus" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19" stroke="white"/>
+                <line x1="5" y1="12" x2="19" y2="12" stroke="white"/>
+            </symbol>
+            <!-- Close -->
+            <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor"/>
+                <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor"/>
+            </symbol>
+            <!-- Sort -->
+            <symbol id="icon-sort" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19" stroke="currentColor"/>
+                <polyline points="6,9 12,3 18,9" stroke="currentColor"/>
+                <polyline points="6,15 12,21 18,15" stroke="currentColor"/>
+            </symbol>
+            <!-- Star -->
+            <symbol id="icon-star" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="#F6C744" stroke="#E8956A"/>
+            </symbol>
+            <!-- Star Empty -->
+            <symbol id="icon-star-empty" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" stroke="#CBD5E0"/>
+            </symbol>
+            <!-- Empty Box -->
+            <symbol id="icon-empty" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" stroke="currentColor"/>
+                <polyline points="3.27,6.96 12,12.01 20.73,6.96" stroke="currentColor"/>
+                <line x1="12" y1="22.08" x2="12" y2="12" stroke="currentColor"/>
+            </symbol>
+            <!-- Category Icons -->
+            <symbol id="icon-ai" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="3" fill="#EDE9FE" stroke="#7C6AEF"/>
+                <circle cx="9" cy="10" r="2" fill="#7C6AEF"/>
+                <circle cx="15" cy="10" r="2" fill="#7C6AEF"/>
+                <path d="M9 15c0 0 1.5 2 3 2s3-2 3-2" stroke="#7C6AEF"/>
+            </symbol>
+            <symbol id="icon-creative" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9" fill="#FEF0F5" stroke="#F687B3"/>
+                <polygon points="10,8 16,12 10,16" fill="#F687B3" stroke="#F687B3"/>
+            </symbol>
+            <symbol id="icon-productivity" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="4" width="16" height="16" rx="2" fill="#E0F2FE" stroke="#63B3ED"/>
+                <line x1="8" y1="9" x2="16" y2="9" stroke="#63B3ED"/>
+                <line x1="8" y1="13" x2="14" y2="13" stroke="#63B3ED"/>
+                <line x1="8" y1="17" x2="12" y2="17" stroke="#63B3ED"/>
+            </symbol>
+            <symbol id="icon-google" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9" fill="#DCFCE7" stroke="#68D391"/>
+                <circle cx="12" cy="12" r="4" fill="#68D391"/>
+            </symbol>
+            <symbol id="icon-other" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="4" width="16" height="16" rx="2" fill="#FEF9C3" stroke="#F6C744"/>
+                <line x1="12" y1="8" x2="12" y2="16" stroke="#F6C744"/>
+                <line x1="8" y1="12" x2="16" y2="12" stroke="#F6C744"/>
+            </symbol>
+            <!-- Credit Card Logo -->
+            <symbol id="icon-card" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="5" width="20" height="14" rx="2" fill="white" stroke="white"/>
+                <rect x="2" y="9" width="20" height="4" fill="#F6C744"/>
+                <circle cx="7" cy="15" r="2" fill="#5AC8C8"/>
+                <circle cx="11" cy="15" r="2" fill="#F687B3"/>
+            </symbol>
+        </defs>
+    </svg>
+
     <div class="container">
         <header>
             <div class="logo">
-                <div class="logo-icon">💳</div>
+                <div class="logo-icon">
+                    <svg><use href="#icon-card"/></svg>
+                </div>
                 <h1>Subscription Tracker</h1>
             </div>
             <p class="subtitle">Track & optimize your monthly spending</p>
         </header>
 
         <div class="top-actions">
-            <button class="top-btn" onclick="exportCSV()">📥 Export</button>
-            <button class="top-btn" onclick="openBudget()">🎯 Budget</button>
+            <button class="top-btn" onclick="exportCSV()">
+                <svg><use href="#icon-download"/></svg>
+                Export
+            </button>
+            <button class="top-btn" onclick="openBudget()">
+                <svg><use href="#icon-target"/></svg>
+                Budget
+            </button>
         </div>
 
         <div class="stats-grid" id="stats"></div>
@@ -818,7 +961,9 @@
         <div class="budget-card">
             <div class="budget-header">
                 <div class="budget-title">
-                    <div class="icon">🎯</div>
+                    <div class="icon-box gold">
+                        <svg><use href="#icon-target"/></svg>
+                    </div>
                     <h2>Monthly Budget</h2>
                 </div>
                 <button class="budget-edit" onclick="openBudget()">Edit</button>
@@ -831,7 +976,9 @@
 
         <div class="cancel-card" id="cancelCard" style="display:none">
             <div class="cancel-header">
-                <div class="icon">✂️</div>
+                <div class="icon-box">
+                    <svg><use href="#icon-scissors"/></svg>
+                </div>
                 <h2>Marked for Cancellation</h2>
             </div>
             <div class="cancel-chips" id="cancelChips"></div>
@@ -850,14 +997,18 @@
         <div class="charts-row">
             <div class="chart-card">
                 <div class="chart-header">
-                    <div class="icon" style="background: var(--purple-light);">📊</div>
+                    <div class="icon-box purple">
+                        <svg><use href="#icon-pie"/></svg>
+                    </div>
                     <h2>By Category</h2>
                 </div>
                 <canvas id="catChart"></canvas>
             </div>
             <div class="chart-card">
                 <div class="chart-header">
-                    <div class="icon" style="background: var(--teal-light);">📈</div>
+                    <div class="icon-box teal">
+                        <svg><use href="#icon-trend"/></svg>
+                    </div>
                     <h2>Trend</h2>
                 </div>
                 <canvas id="trendChart"></canvas>
@@ -867,7 +1018,9 @@
         <div class="subs-card">
             <div class="subs-header">
                 <div class="subs-title">
-                    <div class="icon">🔄</div>
+                    <div class="icon-box purple">
+                        <svg><use href="#icon-refresh"/></svg>
+                    </div>
                     <h2>Your Subscriptions</h2>
                 </div>
                 <div class="filters-row" id="filters">
@@ -880,21 +1033,27 @@
                 </div>
             </div>
             <div class="search-row">
-                <input type="text" class="search-box" id="search" placeholder="🔍 Search subscriptions...">
-                <button class="sort-btn" onclick="openSort()">⇅</button>
+                <input type="text" class="search-box" id="search" placeholder="Search subscriptions...">
+                <button class="sort-btn" onclick="openSort()">
+                    <svg><use href="#icon-sort"/></svg>
+                </button>
             </div>
             <div class="sub-list" id="list"></div>
         </div>
 
-        <footer>Built with 🦉 by Kip</footer>
+        <footer>Built with care by Kip 🦉</footer>
     </div>
 
-    <button class="fab" onclick="openAdd()">+</button>
+    <button class="fab" onclick="openAdd()">
+        <svg><use href="#icon-plus"/></svg>
+    </button>
 
     <!-- Add/Edit Modal -->
     <div class="modal-overlay" id="modal">
         <div class="modal-box">
-            <button class="modal-close" onclick="closeModal()">✕</button>
+            <button class="modal-close" onclick="closeModal()">
+                <svg><use href="#icon-close"/></svg>
+            </button>
             <h2 id="modalTitle">Add Subscription</h2>
             <form id="form">
                 <input type="hidden" id="editId">
@@ -918,15 +1077,9 @@
                         </select>
                     </div>
                 </div>
-                <div class="field-row">
-                    <div class="field">
-                        <label>Billing Day</label>
-                        <input type="number" id="fDay" min="1" max="31" placeholder="15">
-                    </div>
-                    <div class="field">
-                        <label>Icon</label>
-                        <input type="text" id="fIcon" placeholder="🎬" maxlength="2">
-                    </div>
+                <div class="field">
+                    <label>Billing Day (1-31)</label>
+                    <input type="number" id="fDay" min="1" max="31" placeholder="15">
                 </div>
                 <div class="field">
                     <label>Notes</label>
@@ -940,7 +1093,9 @@
     <!-- Budget Modal -->
     <div class="modal-overlay" id="budgetModal">
         <div class="modal-box">
-            <button class="modal-close" onclick="closeBudget()">✕</button>
+            <button class="modal-close" onclick="closeBudget()">
+                <svg><use href="#icon-close"/></svg>
+            </button>
             <h2>Set Monthly Budget</h2>
             <form id="budgetForm">
                 <div class="field">
@@ -966,37 +1121,45 @@
     <div class="toast" id="toast"></div>
 
     <script>
+        const CAT_ICONS = {
+            ai: '#icon-ai',
+            creative: '#icon-creative',
+            productivity: '#icon-productivity',
+            google: '#icon-google',
+            other: '#icon-other'
+        };
+
         const defaults = [
-            {id:1,name:'OpenAI ChatGPT',cat:'ai',price:200,icon:'🤖',note:'Pro',day:12,rating:5,status:'active'},
-            {id:2,name:'Claude.AI',cat:'ai',price:120,icon:'🧠',note:'Max',day:26,rating:5,status:'active'},
-            {id:3,name:'Perplexity',cat:'ai',price:10,icon:'🔍',note:'Pro',day:4,rating:3,status:'active'},
-            {id:4,name:'Anthropic API',cat:'ai',price:5,icon:'⚡',note:'Usage',day:3,rating:4,status:'active'},
-            {id:5,name:'Higgsfield',cat:'creative',price:80,icon:'🎬',note:'Video',day:2,rating:4,status:'active'},
-            {id:6,name:'Suno',cat:'creative',price:10.73,icon:'🎵',note:'Music',day:7,rating:4,status:'active'},
-            {id:7,name:'Runway',cat:'creative',price:15,icon:'🎥',note:'Video',day:9,rating:3,status:'active'},
-            {id:8,name:'Notion',cat:'productivity',price:24,icon:'📝',note:'Team',day:3,rating:5,status:'active'},
-            {id:9,name:'Canva',cat:'productivity',price:14.99,icon:'🎨',note:'Pro',day:5,rating:4,status:'active'},
-            {id:10,name:'Loom',cat:'productivity',price:24,icon:'📹',note:'Business',day:6,rating:2,status:'active'},
-            {id:11,name:'Gamma',cat:'productivity',price:20,icon:'📊',note:'Decks',day:15,rating:3,status:'active'},
-            {id:12,name:'Adobe',cat:'productivity',price:69.99,icon:'🅰️',note:'CC',day:13,rating:4,status:'active'},
-            {id:13,name:'Obsidian',cat:'productivity',price:5,icon:'💎',note:'Sync',day:8,rating:4,status:'active'},
-            {id:14,name:'Mem AI',cat:'productivity',price:12,icon:'🧩',note:'Notes',day:14,rating:2,status:'active'},
-            {id:15,name:'Google',cat:'google',price:67,icon:'🔵',note:'Workspace',day:1,rating:5,status:'active'},
-            {id:16,name:'Apple',cat:'google',price:35,icon:'🍎',note:'Services',day:22,rating:4,status:'active'},
-            {id:17,name:'Takeover',cat:'other',price:7,icon:'📺',note:'',day:1,rating:3,status:'active'},
+            {id:1,name:'OpenAI ChatGPT',cat:'ai',price:200,note:'Pro',day:12,rating:5,status:'active'},
+            {id:2,name:'Claude.AI',cat:'ai',price:120,note:'Max',day:26,rating:5,status:'active'},
+            {id:3,name:'Perplexity',cat:'ai',price:10,note:'Pro',day:4,rating:3,status:'active'},
+            {id:4,name:'Anthropic API',cat:'ai',price:5,note:'Usage',day:3,rating:4,status:'active'},
+            {id:5,name:'Higgsfield',cat:'creative',price:80,note:'Video',day:2,rating:4,status:'active'},
+            {id:6,name:'Suno',cat:'creative',price:10.73,note:'Music',day:7,rating:4,status:'active'},
+            {id:7,name:'Runway',cat:'creative',price:15,note:'Video',day:9,rating:3,status:'active'},
+            {id:8,name:'Notion',cat:'productivity',price:24,note:'Team',day:3,rating:5,status:'active'},
+            {id:9,name:'Canva',cat:'productivity',price:14.99,note:'Pro',day:5,rating:4,status:'active'},
+            {id:10,name:'Loom',cat:'productivity',price:24,note:'Business',day:6,rating:2,status:'active'},
+            {id:11,name:'Gamma',cat:'productivity',price:20,note:'Decks',day:15,rating:3,status:'active'},
+            {id:12,name:'Adobe',cat:'productivity',price:69.99,note:'CC',day:13,rating:4,status:'active'},
+            {id:13,name:'Obsidian',cat:'productivity',price:5,note:'Sync',day:8,rating:4,status:'active'},
+            {id:14,name:'Mem AI',cat:'productivity',price:12,note:'Notes',day:14,rating:2,status:'active'},
+            {id:15,name:'Google',cat:'google',price:67,note:'Workspace',day:1,rating:5,status:'active'},
+            {id:16,name:'Apple',cat:'google',price:35,note:'Services',day:22,rating:4,status:'active'},
+            {id:17,name:'Takeover',cat:'other',price:7,note:'',day:1,rating:3,status:'active'},
         ];
 
         let subs=[], budget=500, filter='all', sort='name';
         let catChart, trendChart;
 
         function load(){
-            subs = JSON.parse(localStorage.getItem('subs_v6')) || [...defaults];
-            budget = parseFloat(localStorage.getItem('budget_v6')) || 500;
+            subs = JSON.parse(localStorage.getItem('subs_v7')) || [...defaults];
+            budget = parseFloat(localStorage.getItem('budget_v7')) || 500;
         }
 
         function save(){
-            localStorage.setItem('subs_v6', JSON.stringify(subs));
-            localStorage.setItem('budget_v6', budget);
+            localStorage.setItem('subs_v7', JSON.stringify(subs));
+            localStorage.setItem('budget_v7', budget);
         }
 
         function getStats(){
@@ -1024,7 +1187,7 @@
             const rem = budget - st.total;
             document.getElementById('stats').innerHTML = `
                 <div class="stat-card">
-                    <div class="stat-icon coral">💰</div>
+                    <div class="icon-box coral"><svg><use href="#icon-wallet"/></svg></div>
                     <div class="stat-info">
                         <h3>Monthly</h3>
                         <div class="value">$${st.total.toFixed(0)}</div>
@@ -1032,7 +1195,7 @@
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon teal">📅</div>
+                    <div class="icon-box teal"><svg><use href="#icon-calendar"/></svg></div>
                     <div class="stat-info">
                         <h3>Annual</h3>
                         <div class="value">$${st.annual.toFixed(0)}</div>
@@ -1040,7 +1203,7 @@
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon gold">🎯</div>
+                    <div class="icon-box gold"><svg><use href="#icon-target"/></svg></div>
                     <div class="stat-info">
                         <h3>Remaining</h3>
                         <div class="value" style="color:${rem>=0?'var(--teal)':'var(--coral)'}">${rem>=0?'':'−'}$${Math.abs(rem).toFixed(0)}</div>
@@ -1048,7 +1211,7 @@
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon purple">✂️</div>
+                    <div class="icon-box purple"><svg><use href="#icon-scissors"/></svg></div>
                     <div class="stat-info">
                         <h3>Saved</h3>
                         <div class="value" style="color:var(--teal)">$${st.savedTotal.toFixed(0)}</div>
@@ -1068,7 +1231,7 @@
             if(!list.length){ card.style.display='none'; return; }
             card.style.display='block';
             const total = list.reduce((a,s)=>a+s.price,0);
-            document.getElementById('cancelChips').innerHTML = list.map(s=>`<div class="cancel-chip"><span>${s.icon}</span><span>${s.name}</span><span class="price">$${s.price.toFixed(0)}</span></div>`).join('');
+            document.getElementById('cancelChips').innerHTML = list.map(s=>`<div class="cancel-chip"><span>${s.name}</span><span class="price">$${s.price.toFixed(0)}</span></div>`).join('');
             document.getElementById('saveMo').textContent = `$${total.toFixed(0)}`;
             document.getElementById('saveYr').textContent = `$${(total*12).toFixed(0)}`;
         }
@@ -1097,14 +1260,18 @@
                 }
             });
             const el = document.getElementById('list');
-            if(!list.length){ el.innerHTML='<div class="empty"><div class="icon">📭</div><p>No subscriptions found</p></div>'; return; }
+            if(!list.length){ 
+                el.innerHTML='<div class="empty"><svg><use href="#icon-empty"/></svg><p>No subscriptions found</p></div>'; 
+                return; 
+            }
             el.innerHTML = list.map(s=>{
                 const days = getDays(s.day);
                 const due = days!==null ? `<span class="${days<=3?'due':''}">Due in ${days}d</span>` : '';
+                const stars = [1,2,3,4,5].map(i=>`<span class="${i<=(s.rating||0)?'on':''}" onclick="rate(${s.id},${i})"><svg><use href="${i<=(s.rating||0)?'#icon-star':'#icon-star-empty'}"/></svg></span>`).join('');
                 return `
                 <div class="sub-item${s.status==='to-cancel'?' marked':''}">
                     <div class="sub-row">
-                        <div class="sub-icon cat-${s.cat}">${s.icon||'📦'}</div>
+                        <div class="sub-icon cat-${s.cat}"><svg><use href="${CAT_ICONS[s.cat]}"/></svg></div>
                         <div class="sub-details">
                             <h4>${s.name}</h4>
                             <span>${s.note||''} ${due}</span>
@@ -1115,11 +1282,11 @@
                         </div>
                     </div>
                     <div class="sub-actions-row">
-                        <div class="stars">${[1,2,3,4,5].map(i=>`<span class="${i<=(s.rating||0)?'on':''}" onclick="rate(${s.id},${i})">⭐</span>`).join('')}</div>
+                        <div class="stars">${stars}</div>
                         <div class="action-btns">
-                            <button class="btn-edit" onclick="edit(${s.id})">✏️</button>
-                            ${s.status==='active'?`<button class="btn-warn" onclick="mark(${s.id})">⚠️</button>`:`<button class="btn-ok" onclick="restore(${s.id})">✅</button>`}
-                            <button class="btn-del" onclick="del(${s.id})">🗑️</button>
+                            <button class="btn-edit" onclick="edit(${s.id})"><svg><use href="#icon-edit"/></svg></button>
+                            ${s.status==='active'?`<button class="btn-warn" onclick="mark(${s.id})"><svg><use href="#icon-warn"/></svg></button>`:`<button class="btn-ok" onclick="restore(${s.id})"><svg><use href="#icon-check"/></svg></button>`}
+                            <button class="btn-del" onclick="del(${s.id})"><svg><use href="#icon-trash"/></svg></button>
                         </div>
                     </div>
                 </div>`;
@@ -1134,7 +1301,7 @@
                 type:'doughnut',
                 data:{
                     labels:['AI','Creative','Productivity','Google','Other'],
-                    datasets:[{data:[st.cats.ai,st.cats.creative,st.cats.productivity,st.cats.google,st.cats.other],backgroundColor:['#7C6AEF','#F687B3','#4FACFE','#43E97B','#F6C744'],borderWidth:0}]
+                    datasets:[{data:[st.cats.ai,st.cats.creative,st.cats.productivity,st.cats.google,st.cats.other],backgroundColor:['#7C6AEF','#F687B3','#63B3ED','#68D391','#F6C744'],borderWidth:0}]
                 },
                 options:{responsive:true,plugins:{legend:{position:'bottom',labels:{color:'#718096',font:{size:11},padding:12}}}}
             });
@@ -1143,7 +1310,7 @@
                 type:'line',
                 data:{
                     labels:['Sep','Oct','Nov','Dec','Jan','Feb'],
-                    datasets:[{data:[base*.92,base*.95,base*1.02,base*.98,base*1.01,base],borderColor:'#5AC8C8',backgroundColor:'rgba(90,200,200,0.1)',fill:true,tension:0.4,pointRadius:3,pointBackgroundColor:'#5AC8C8'}]
+                    datasets:[{data:[base*.92,base*.95,base*1.02,base*.98,base*1.01,base],borderColor:'#5AC8C8',backgroundColor:'rgba(90,200,200,0.1)',fill:true,tension:0.4,pointRadius:4,pointBackgroundColor:'#5AC8C8'}]
                 },
                 options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{display:false},x:{grid:{display:false},ticks:{color:'#718096'}}}}
             });
@@ -1165,7 +1332,6 @@
             document.getElementById('fPrice').value=s.price;
             document.getElementById('fCat').value=s.cat;
             document.getElementById('fDay').value=s.day||'';
-            document.getElementById('fIcon').value=s.icon||'';
             document.getElementById('fNote').value=s.note||'';
             document.getElementById('modal').classList.add('open');
         }
@@ -1199,7 +1365,6 @@
                 price: parseFloat(document.getElementById('fPrice').value),
                 cat: document.getElementById('fCat').value,
                 day: parseInt(document.getElementById('fDay').value)||null,
-                icon: document.getElementById('fIcon').value||'📦',
                 note: document.getElementById('fNote').value,
                 rating: 0,
                 status: 'active'
