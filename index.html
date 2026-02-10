@@ -15,113 +15,63 @@
         }
 
         :root {
-            --bg: #F7F8FA;
+            --bg: #FAFAFA;
             --card: #FFFFFF;
-            --text: #1A202C;
-            --text-secondary: #4A5568;
-            --text-muted: #718096;
-            --primary: #2D5A7B;
-            --primary-light: #EBF4F8;
-            --accent: #D97756;
-            --accent-light: #FDF2EF;
-            --success: #2F855A;
-            --success-light: #F0FFF4;
-            --warning: #B7791F;
-            --warning-light: #FFFAF0;
-            --purple: #553C9A;
-            --purple-light: #F5F3FF;
-            --border: #E2E8F0;
-            --border-dark: #CBD5E0;
-            --shadow: 0 1px 3px rgba(0,0,0,0.08);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --text: #1A1A1A;
+            --text-secondary: #6B7280;
+            --text-muted: #9CA3AF;
+            --border: #E5E7EB;
+            --blue: #E3F2FD;
+            --blue-dark: #1E88E5;
+            --purple: #EDE7F6;
+            --purple-dark: #7C4DFF;
+            --mint: #E8F5E9;
+            --mint-dark: #43A047;
+            --peach: #FFF3E0;
+            --peach-dark: #FB8C00;
+            --pink: #FCE4EC;
+            --pink-dark: #EC407A;
+            --shadow: 0 1px 2px rgba(0,0,0,0.04);
         }
 
         html, body { overflow-x: hidden; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg);
             min-height: 100vh;
             color: var(--text);
-            padding: 16px;
+            padding: 20px;
             padding-bottom: 100px;
-            font-size: 14px;
         }
 
-        .container { max-width: 1200px; margin: 0 auto; }
-
-        /* Custom Icons */
-        .icon-box {
-            width: 40px;
-            height: 40px;
-            min-width: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .icon-box svg {
-            width: 20px;
-            height: 20px;
-            flex-shrink: 0;
-        }
-
-        .icon-box.primary { background: var(--primary-light); }
-        .icon-box.accent { background: var(--accent-light); }
-        .icon-box.success { background: var(--success-light); }
-        .icon-box.warning { background: var(--warning-light); }
-        .icon-box.purple { background: var(--purple-light); }
+        .container { max-width: 900px; margin: 0 auto; }
 
         /* Header */
         header {
-            text-align: center;
             margin-bottom: 24px;
         }
 
-        .logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 6px;
-        }
-
-        .logo-icon {
-            width: 44px;
-            height: 44px;
-            min-width: 44px;
-            background: var(--primary);
-            border-radius: 12px;
+        .header-row {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
+            margin-bottom: 4px;
         }
-
-        .logo-icon svg { width: 24px; height: 24px; }
 
         h1 {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             color: var(--text);
             font-weight: 600;
-            letter-spacing: -0.02em;
         }
 
-        .subtitle {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        /* Action Buttons */
-        .top-actions {
+        .header-actions {
             display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 8px;
         }
 
-        .top-btn {
-            padding: 8px 16px;
+        .header-btn {
+            padding: 8px 14px;
             border-radius: 8px;
             border: 1px solid var(--border);
             background: var(--card);
@@ -129,71 +79,75 @@
             font-size: 0.8rem;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.15s;
             display: flex;
             align-items: center;
             gap: 6px;
         }
 
-        .top-btn svg { width: 16px; height: 16px; }
+        .header-btn:hover { background: var(--bg); }
 
-        .top-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.85rem;
         }
 
-        /* Stats Cards */
+        /* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         .stat-card {
-            background: var(--card);
             border-radius: 12px;
-            padding: 14px;
-            box-shadow: var(--shadow);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border: 1px solid var(--border);
+            padding: 16px;
+            position: relative;
         }
 
-        .stat-info { min-width: 0; }
+        .stat-card.blue { background: var(--blue); }
+        .stat-card.purple { background: var(--purple); }
+        .stat-card.mint { background: var(--mint); }
+        .stat-card.peach { background: var(--peach); }
 
-        .stat-info h3 {
-            color: var(--text-muted);
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
             font-weight: 500;
-            margin-bottom: 4px;
+            margin-bottom: 8px;
         }
 
-        .stat-info .value {
-            font-size: 1.25rem;
-            font-weight: 600;
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
             color: var(--text);
             letter-spacing: -0.02em;
         }
 
-        .stat-info .change {
+        .stat-trend {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
             font-size: 0.7rem;
-            color: var(--text-muted);
             font-weight: 500;
+            margin-left: 8px;
         }
 
-        .stat-info .change.positive { color: var(--success); }
+        .stat-trend.up { color: var(--mint-dark); }
+        .stat-trend.down { color: var(--peach-dark); }
 
-        /* Budget Card */
-        .budget-card {
+        .stat-sub {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Budget Progress */
+        .budget-section {
             background: var(--card);
             border-radius: 12px;
             padding: 16px;
-            box-shadow: var(--shadow);
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             border: 1px solid var(--border);
         }
 
@@ -205,224 +159,157 @@
         }
 
         .budget-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .budget-title .icon-box { width: 32px; height: 32px; min-width: 32px; }
-        .budget-title .icon-box svg { width: 16px; height: 16px; }
-
-        .budget-title h2 {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             color: var(--text);
         }
 
-        .budget-edit {
-            padding: 6px 12px;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            background: var(--card);
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            font-weight: 500;
-            cursor: pointer;
+        .budget-amount {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
         }
 
-        .progress-container {
+        .progress-bar-bg {
+            height: 8px;
             background: var(--bg);
-            border-radius: 8px;
-            height: 32px;
-            position: relative;
+            border-radius: 4px;
             overflow: hidden;
         }
 
-        .progress-bar {
+        .progress-bar-fill {
             height: 100%;
-            border-radius: 8px;
-            background: var(--primary);
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--purple-dark), var(--blue-dark));
             transition: width 0.4s ease;
         }
 
-        .progress-bar.over {
-            background: var(--accent);
+        .progress-bar-fill.over {
+            background: linear-gradient(90deg, var(--peach-dark), var(--pink-dark));
         }
 
-        .progress-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text);
-        }
-
-        /* Cancel Card */
-        .cancel-card {
-            background: var(--warning-light);
-            border: 1px solid #F6E5C3;
+        /* Cancel Section */
+        .cancel-section {
+            background: var(--peach);
             border-radius: 12px;
             padding: 16px;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
-        .cancel-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .cancel-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--peach-dark);
             margin-bottom: 12px;
         }
 
-        .cancel-header .icon-box { width: 32px; height: 32px; min-width: 32px; background: #FEEBC8; }
-        .cancel-header .icon-box svg { width: 16px; height: 16px; }
-
-        .cancel-header h2 {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--warning);
-        }
-
-        .cancel-chips {
+        .cancel-items {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
+            margin-bottom: 12px;
         }
 
-        .cancel-chip {
-            display: flex;
+        .cancel-tag {
+            display: inline-flex;
             align-items: center;
             gap: 6px;
             padding: 6px 12px;
             background: white;
             border-radius: 6px;
             font-size: 0.8rem;
-            border: 1px solid #F6E5C3;
             font-weight: 500;
         }
 
-        .cancel-chip .price {
-            color: var(--warning);
-            font-weight: 600;
-        }
+        .cancel-tag .price { color: var(--peach-dark); }
 
-        .savings-row {
+        .cancel-savings {
             display: flex;
-            gap: 24px;
-            margin-top: 12px;
+            gap: 20px;
             padding-top: 12px;
-            border-top: 1px solid #F6E5C3;
+            border-top: 1px solid rgba(251,140,0,0.2);
         }
 
-        .savings-stat .label {
-            font-size: 0.65rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .savings-stat .value {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--success);
-        }
+        .cancel-savings div { }
+        .cancel-savings .label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; }
+        .cancel-savings .value { font-size: 1rem; font-weight: 600; color: var(--mint-dark); }
 
         /* Charts */
-        .charts-row {
+        .charts-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         .chart-card {
             background: var(--card);
             border-radius: 12px;
-            padding: 14px;
-            box-shadow: var(--shadow);
+            padding: 16px;
             border: 1px solid var(--border);
         }
 
-        .chart-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .chart-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text);
             margin-bottom: 12px;
         }
 
-        .chart-header .icon-box { width: 24px; height: 24px; min-width: 24px; border-radius: 6px; }
-        .chart-header .icon-box svg { width: 14px; height: 14px; }
-
-        .chart-header h2 {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text);
-        }
-
-        /* Subscriptions Card */
-        .subs-card {
+        /* Subscriptions */
+        .subs-section {
             background: var(--card);
             border-radius: 12px;
             padding: 16px;
-            box-shadow: var(--shadow);
             border: 1px solid var(--border);
         }
 
-        .subs-header { margin-bottom: 14px; }
-
-        .subs-title {
+        .subs-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
-        .subs-title .icon-box { width: 32px; height: 32px; min-width: 32px; }
-        .subs-title .icon-box svg { width: 16px; height: 16px; }
-
-        .subs-title h2 {
-            font-size: 0.9rem;
+        .subs-title {
+            font-size: 0.85rem;
             font-weight: 600;
             color: var(--text);
         }
 
-        .filters-row {
+        .filters {
             display: flex;
-            gap: 6px;
+            gap: 4px;
             overflow-x: auto;
             padding-bottom: 4px;
             -webkit-overflow-scrolling: touch;
         }
 
-        .filters-row::-webkit-scrollbar { display: none; }
+        .filters::-webkit-scrollbar { display: none; }
 
-        .filter-pill {
+        .filter-btn {
             padding: 6px 12px;
             border-radius: 6px;
-            border: 1px solid var(--border);
-            background: var(--card);
+            border: none;
+            background: transparent;
             color: var(--text-muted);
             font-size: 0.75rem;
             font-weight: 500;
             white-space: nowrap;
             cursor: pointer;
-            transition: all 0.15s;
         }
 
-        .filter-pill.active {
-            background: var(--primary);
-            border-color: var(--primary);
+        .filter-btn.active {
+            background: var(--text);
             color: white;
         }
 
         .search-row {
             display: flex;
             gap: 8px;
-            margin: 12px 0;
+            margin-bottom: 16px;
         }
 
-        .search-box {
+        .search-input {
             flex: 1;
             padding: 10px 14px;
             border-radius: 8px;
@@ -432,12 +319,8 @@
             font-size: 0.85rem;
         }
 
-        .search-box:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        .search-box::placeholder { color: var(--text-muted); }
+        .search-input:focus { outline: none; border-color: var(--text-muted); }
+        .search-input::placeholder { color: var(--text-muted); }
 
         .sort-btn {
             padding: 10px 14px;
@@ -446,14 +329,9 @@
             background: var(--card);
             color: var(--text-muted);
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
-        .sort-btn svg { width: 18px; height: 18px; }
-
-        /* Subscription List */
+        /* Sub List */
         .sub-list {
             display: flex;
             flex-direction: column;
@@ -461,183 +339,148 @@
         }
 
         .sub-item {
-            background: var(--bg);
-            border-radius: 10px;
-            padding: 12px;
-            transition: all 0.15s;
-            border: 1px solid transparent;
-        }
-
-        .sub-item:hover { 
-            border-color: var(--border);
-            background: var(--card);
-        }
-
-        .sub-item.marked {
-            background: var(--warning-light);
-            border-color: #F6E5C3;
-        }
-
-        .sub-row {
             display: flex;
             align-items: center;
             gap: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            background: var(--bg);
+            transition: background 0.15s;
         }
+
+        .sub-item:hover { background: #F3F4F6; }
+
+        .sub-item.marked { background: var(--peach); }
 
         .sub-icon {
             width: 40px;
             height: 40px;
-            min-width: 40px;
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.1rem;
             flex-shrink: 0;
         }
 
-        .sub-icon svg { 
-            width: 20px; 
-            height: 20px; 
-            flex-shrink: 0;
-        }
+        .sub-icon.ai { background: var(--purple); }
+        .sub-icon.creative { background: var(--pink); }
+        .sub-icon.productivity { background: var(--blue); }
+        .sub-icon.google { background: var(--mint); }
+        .sub-icon.other { background: var(--peach); }
 
-        .cat-ai { background: var(--purple-light); }
-        .cat-creative { background: var(--accent-light); }
-        .cat-productivity { background: var(--primary-light); }
-        .cat-google { background: var(--success-light); }
-        .cat-other { background: var(--warning-light); }
-
-        .sub-details {
+        .sub-info {
             flex: 1;
             min-width: 0;
         }
 
-        .sub-details h4 {
+        .sub-name {
             font-size: 0.9rem;
-            color: var(--text);
             font-weight: 600;
-            margin-bottom: 2px;
+            color: var(--text);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        .sub-details span {
+        .sub-meta {
             font-size: 0.75rem;
             color: var(--text-muted);
         }
 
-        .sub-details .due { color: var(--warning); font-weight: 500; }
+        .sub-meta .due { color: var(--peach-dark); }
 
-        .sub-amount {
+        .sub-price {
             text-align: right;
-            flex-shrink: 0;
         }
 
-        .sub-amount .price {
-            font-size: 1.1rem;
+        .sub-price .amount {
+            font-size: 1rem;
             font-weight: 600;
             color: var(--text);
         }
 
-        .sub-amount .period {
+        .sub-price .period {
             font-size: 0.65rem;
             color: var(--text-muted);
         }
 
-        .sub-actions-row {
+        .sub-actions {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px solid var(--border);
+            gap: 4px;
         }
 
-        .stars { display: flex; gap: 2px; }
-
-        .stars span {
-            width: 22px;
-            height: 22px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0.25;
-        }
-
-        .stars span.on { opacity: 1; }
-        .stars span svg { width: 16px; height: 16px; }
-
-        .action-btns { display: flex; gap: 6px; }
-
-        .action-btns button {
+        .sub-actions button {
             width: 32px;
             height: 32px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
+            border-radius: 6px;
+            border: none;
+            background: var(--card);
+            color: var(--text-muted);
             cursor: pointer;
-            transition: all 0.15s;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--card);
         }
 
-        .action-btns button svg { width: 16px; height: 16px; }
-        .action-btns button:active { transform: scale(0.95); }
+        .sub-actions button:hover { background: var(--border); }
 
-        .btn-edit { color: var(--primary); }
-        .btn-edit:hover { background: var(--primary-light); border-color: var(--primary); }
-        .btn-warn { color: var(--warning); }
-        .btn-warn:hover { background: var(--warning-light); border-color: var(--warning); }
-        .btn-del { color: var(--accent); }
-        .btn-del:hover { background: var(--accent-light); border-color: var(--accent); }
-        .btn-ok { color: var(--success); }
-        .btn-ok:hover { background: var(--success-light); border-color: var(--success); }
+        /* Rating */
+        .sub-rating {
+            display: flex;
+            gap: 2px;
+            margin-right: 8px;
+        }
+
+        .sub-rating span {
+            font-size: 0.75rem;
+            opacity: 0.2;
+            cursor: pointer;
+        }
+
+        .sub-rating span.on { opacity: 1; }
 
         /* FAB */
         .fab {
             position: fixed;
             bottom: 24px;
             right: 24px;
-            width: 56px;
-            height: 56px;
+            width: 52px;
+            height: 52px;
             border-radius: 14px;
-            background: var(--primary);
+            background: var(--text);
             border: none;
             color: white;
+            font-size: 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: var(--shadow-md);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             cursor: pointer;
             z-index: 100;
         }
 
-        .fab svg { width: 24px; height: 24px; }
-
         /* Modal */
-        .modal-overlay {
+        .modal-bg {
             display: none;
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.4);
             z-index: 200;
             padding: 20px;
             overflow-y: auto;
         }
 
-        .modal-overlay.open { display: flex; align-items: center; justify-content: center; }
+        .modal-bg.open { display: flex; align-items: center; justify-content: center; }
 
-        .modal-box {
+        .modal {
             background: var(--card);
             border-radius: 16px;
             padding: 24px;
             width: 100%;
-            max-width: 400px;
+            max-width: 380px;
             position: relative;
-            box-shadow: var(--shadow-md);
         }
 
         .modal-close {
@@ -651,16 +494,11 @@
             border: none;
             color: var(--text-muted);
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-size: 1rem;
         }
 
-        .modal-close svg { width: 18px; height: 18px; }
-
-        .modal-box h2 {
-            font-size: 1.1rem;
-            color: var(--text);
+        .modal h2 {
+            font-size: 1rem;
             font-weight: 600;
             margin-bottom: 20px;
         }
@@ -669,9 +507,9 @@
 
         .field label {
             display: block;
-            color: var(--text-secondary);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 500;
+            color: var(--text-secondary);
             margin-bottom: 6px;
         }
 
@@ -687,7 +525,7 @@
 
         .field input:focus, .field select:focus {
             outline: none;
-            border-color: var(--primary);
+            border-color: var(--text-muted);
         }
 
         .field-row {
@@ -701,28 +539,25 @@
             padding: 14px;
             border-radius: 10px;
             border: none;
-            background: var(--primary);
+            background: var(--text);
             color: white;
             font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 8px;
         }
 
-        .save-btn:hover { opacity: 0.9; }
-
         /* Sort Sheet */
-        .sheet-overlay {
+        .sheet-bg {
             display: none;
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.4);
+            background: rgba(0,0,0,0.3);
             z-index: 150;
         }
 
-        .sheet-overlay.open { display: block; }
+        .sheet-bg.open { display: block; }
 
-        .sort-sheet {
+        .sheet {
             position: fixed;
             bottom: 0; left: 0; right: 0;
             background: var(--card);
@@ -733,31 +568,28 @@
             z-index: 151;
         }
 
-        .sort-sheet.open { transform: translateY(0); }
+        .sheet.open { transform: translateY(0); }
 
-        .sort-sheet h3 {
+        .sheet h3 {
             text-align: center;
-            color: var(--text);
             font-size: 0.9rem;
             font-weight: 600;
             margin-bottom: 16px;
         }
 
-        .sort-opt {
+        .sheet-opt {
             padding: 12px;
             border-radius: 8px;
             background: var(--bg);
-            color: var(--text-secondary);
             text-align: center;
             margin-bottom: 8px;
             cursor: pointer;
-            font-weight: 500;
             font-size: 0.85rem;
-            border: 1px solid transparent;
+            color: var(--text-secondary);
         }
 
-        .sort-opt.active {
-            background: var(--primary);
+        .sheet-opt.active {
+            background: var(--text);
             color: white;
         }
 
@@ -771,8 +603,8 @@
             color: white;
             padding: 12px 20px;
             border-radius: 8px;
-            font-weight: 500;
             font-size: 0.85rem;
+            font-weight: 500;
             opacity: 0;
             transition: all 0.3s;
             z-index: 300;
@@ -787,9 +619,8 @@
             text-align: center;
             padding: 40px;
             color: var(--text-muted);
+            font-size: 0.85rem;
         }
-
-        .empty svg { width: 48px; height: 48px; margin-bottom: 12px; opacity: 0.4; }
 
         footer {
             text-align: center;
@@ -800,245 +631,73 @@
 
         /* Desktop */
         @media (min-width: 768px) {
-            body { padding: 32px; }
-            h1 { font-size: 1.75rem; }
-            .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
-            .stat-card { padding: 18px; }
-            .icon-box { width: 48px; height: 48px; min-width: 48px; }
-            .icon-box svg { width: 24px; height: 24px; }
-            .stat-info .value { font-size: 1.5rem; }
-            .charts-row { gap: 16px; }
+            body { padding: 40px; }
+            .stats-grid { grid-template-columns: repeat(4, 1fr); }
+            .stat-value { font-size: 2rem; }
             .sub-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .sub-item { padding: 16px; }
-            .fab { width: 60px; height: 60px; border-radius: 16px; }
-        }
-
-        @media (min-width: 1200px) {
-            .sub-list { grid-template-columns: repeat(3, 1fr); }
         }
     </style>
 </head>
 <body>
-    <!-- SVG Definitions -->
-    <svg style="display:none">
-        <defs>
-            <symbol id="icon-wallet" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" stroke="var(--accent)"/>
-                <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" stroke="var(--accent)"/>
-                <circle cx="18" cy="12" r="2" fill="var(--warning)" stroke="var(--accent)"/>
-            </symbol>
-            <symbol id="icon-calendar" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="4" width="18" height="18" rx="2" stroke="var(--primary)"/>
-                <line x1="3" y1="10" x2="21" y2="10" stroke="var(--primary)"/>
-                <line x1="8" y1="2" x2="8" y2="6" stroke="var(--primary)"/>
-                <line x1="16" y1="2" x2="16" y2="6" stroke="var(--primary)"/>
-            </symbol>
-            <symbol id="icon-target" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10" stroke="var(--warning)"/>
-                <circle cx="12" cy="12" r="6" stroke="var(--warning)"/>
-                <circle cx="12" cy="12" r="2" fill="var(--warning)"/>
-            </symbol>
-            <symbol id="icon-scissors" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="6" cy="6" r="3" stroke="var(--purple)"/>
-                <circle cx="6" cy="18" r="3" stroke="var(--purple)"/>
-                <line x1="20" y1="4" x2="8.12" y2="15.88" stroke="var(--purple)"/>
-                <line x1="14.47" y1="14.48" x2="20" y2="20" stroke="var(--purple)"/>
-                <line x1="8.12" y1="8.12" x2="12" y2="12" stroke="var(--purple)"/>
-            </symbol>
-            <symbol id="icon-pie" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2a10 10 0 1 0 10 10H12V2z" stroke="var(--purple)"/>
-                <path d="M12 2a10 10 0 0 1 10 10h-10V2z" fill="var(--purple-light)" stroke="var(--purple)"/>
-            </symbol>
-            <symbol id="icon-trend" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="23,6 13.5,15.5 8.5,10.5 1,18" stroke="var(--primary)"/>
-                <polyline points="17,6 23,6 23,12" stroke="var(--primary)"/>
-            </symbol>
-            <symbol id="icon-refresh" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 12a9 9 0 1 1-3-6.7" stroke="var(--purple)"/>
-                <path d="M21 3v6h-6" stroke="var(--purple)"/>
-            </symbol>
-            <symbol id="icon-download" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor"/>
-                <polyline points="7,10 12,15 17,10" stroke="currentColor"/>
-                <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor"/>
-            </symbol>
-            <symbol id="icon-edit" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" stroke="currentColor"/>
-            </symbol>
-            <symbol id="icon-warn" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" stroke="currentColor"/>
-                <line x1="12" y1="9" x2="12" y2="13" stroke="currentColor"/>
-                <line x1="12" y1="17" x2="12.01" y2="17" stroke="currentColor"/>
-            </symbol>
-            <symbol id="icon-trash" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="3,6 5,6 21,6" stroke="currentColor"/>
-                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="currentColor"/>
-            </symbol>
-            <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20,6 9,17 4,12" stroke="currentColor"/>
-            </symbol>
-            <symbol id="icon-plus" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="5" x2="12" y2="19" stroke="white"/>
-                <line x1="5" y1="12" x2="19" y2="12" stroke="white"/>
-            </symbol>
-            <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor"/>
-                <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor"/>
-            </symbol>
-            <symbol id="icon-sort" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="12" y1="5" x2="12" y2="19" stroke="currentColor"/>
-                <polyline points="6,9 12,3 18,9" stroke="currentColor"/>
-                <polyline points="6,15 12,21 18,15" stroke="currentColor"/>
-            </symbol>
-            <symbol id="icon-star" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="var(--warning)" stroke="var(--warning)"/>
-            </symbol>
-            <symbol id="icon-star-empty" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" stroke="var(--border-dark)"/>
-            </symbol>
-            <symbol id="icon-empty" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" stroke="currentColor"/>
-                <polyline points="3.27,6.96 12,12.01 20.73,6.96" stroke="currentColor"/>
-                <line x1="12" y1="22.08" x2="12" y2="12" stroke="currentColor"/>
-            </symbol>
-            <symbol id="icon-ai" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="4" y="4" width="16" height="16" rx="2" stroke="var(--purple)"/>
-                <circle cx="9" cy="10" r="1.5" fill="var(--purple)"/>
-                <circle cx="15" cy="10" r="1.5" fill="var(--purple)"/>
-                <path d="M9 15c0 0 1.5 1.5 3 1.5s3-1.5 3-1.5" stroke="var(--purple)"/>
-            </symbol>
-            <symbol id="icon-creative" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="9" stroke="var(--accent)"/>
-                <polygon points="10,8 16,12 10,16" fill="var(--accent)" stroke="var(--accent)"/>
-            </symbol>
-            <symbol id="icon-productivity" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="4" y="4" width="16" height="16" rx="2" stroke="var(--primary)"/>
-                <line x1="8" y1="9" x2="16" y2="9" stroke="var(--primary)"/>
-                <line x1="8" y1="13" x2="14" y2="13" stroke="var(--primary)"/>
-                <line x1="8" y1="17" x2="12" y2="17" stroke="var(--primary)"/>
-            </symbol>
-            <symbol id="icon-google" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="9" stroke="var(--success)"/>
-                <circle cx="12" cy="12" r="4" fill="var(--success-light)" stroke="var(--success)"/>
-            </symbol>
-            <symbol id="icon-other" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="4" y="4" width="16" height="16" rx="2" stroke="var(--warning)"/>
-                <line x1="12" y1="8" x2="12" y2="16" stroke="var(--warning)"/>
-                <line x1="8" y1="12" x2="16" y2="12" stroke="var(--warning)"/>
-            </symbol>
-            <symbol id="icon-card" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="5" width="20" height="14" rx="2" fill="white" stroke="white"/>
-                <rect x="2" y="5" width="20" height="14" rx="2" stroke="white"/>
-                <rect x="2" y="9" width="20" height="4" fill="var(--primary)"/>
-                <circle cx="7" cy="15" r="1.5" fill="var(--warning)"/>
-                <circle cx="11" cy="15" r="1.5" fill="var(--accent)"/>
-            </symbol>
-        </defs>
-    </svg>
-
     <div class="container">
         <header>
-            <div class="logo">
-                <div class="logo-icon">
-                    <svg><use href="#icon-card"/></svg>
+            <div class="header-row">
+                <h1>💳 Subscriptions</h1>
+                <div class="header-actions">
+                    <button class="header-btn" onclick="exportCSV()">📥 Export</button>
+                    <button class="header-btn" onclick="openBudget()">🎯 Budget</button>
                 </div>
-                <h1>Subscription Tracker</h1>
             </div>
-            <p class="subtitle">Track and optimize your monthly spending</p>
+            <p class="subtitle">Track your monthly spending</p>
         </header>
-
-        <div class="top-actions">
-            <button class="top-btn" onclick="exportCSV()">
-                <svg><use href="#icon-download"/></svg>
-                Export
-            </button>
-            <button class="top-btn" onclick="openBudget()">
-                <svg><use href="#icon-target"/></svg>
-                Budget
-            </button>
-        </div>
 
         <div class="stats-grid" id="stats"></div>
 
-        <div class="budget-card">
+        <div class="budget-section">
             <div class="budget-header">
-                <div class="budget-title">
-                    <div class="icon-box warning">
-                        <svg><use href="#icon-target"/></svg>
-                    </div>
-                    <h2>Monthly Budget</h2>
-                </div>
-                <button class="budget-edit" onclick="openBudget()">Edit</button>
+                <span class="budget-title">Monthly Budget</span>
+                <span class="budget-amount" id="budgetText">$0 / $500</span>
             </div>
-            <div class="progress-container">
-                <div class="progress-bar" id="progFill"></div>
-                <span class="progress-text" id="progLabel"></span>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progFill"></div>
             </div>
         </div>
 
-        <div class="cancel-card" id="cancelCard" style="display:none">
-            <div class="cancel-header">
-                <div class="icon-box">
-                    <svg><use href="#icon-scissors"/></svg>
-                </div>
-                <h2>Marked for Cancellation</h2>
-            </div>
-            <div class="cancel-chips" id="cancelChips"></div>
-            <div class="savings-row">
-                <div class="savings-stat">
-                    <div class="label">Monthly Savings</div>
-                    <div class="value" id="saveMo">$0</div>
-                </div>
-                <div class="savings-stat">
-                    <div class="label">Annual Savings</div>
-                    <div class="value" id="saveYr">$0</div>
-                </div>
+        <div class="cancel-section" id="cancelSection" style="display:none">
+            <div class="cancel-title">⚠️ Marked for Cancellation</div>
+            <div class="cancel-items" id="cancelItems"></div>
+            <div class="cancel-savings">
+                <div><div class="label">Monthly</div><div class="value" id="saveMo">$0</div></div>
+                <div><div class="label">Annual</div><div class="value" id="saveYr">$0</div></div>
             </div>
         </div>
 
-        <div class="charts-row">
+        <div class="charts-grid">
             <div class="chart-card">
-                <div class="chart-header">
-                    <div class="icon-box purple">
-                        <svg><use href="#icon-pie"/></svg>
-                    </div>
-                    <h2>By Category</h2>
-                </div>
+                <div class="chart-title">📊 By Category</div>
                 <canvas id="catChart"></canvas>
             </div>
             <div class="chart-card">
-                <div class="chart-header">
-                    <div class="icon-box primary">
-                        <svg><use href="#icon-trend"/></svg>
-                    </div>
-                    <h2>Trend</h2>
-                </div>
+                <div class="chart-title">📈 Spending Trend</div>
                 <canvas id="trendChart"></canvas>
             </div>
         </div>
 
-        <div class="subs-card">
+        <div class="subs-section">
             <div class="subs-header">
-                <div class="subs-title">
-                    <div class="icon-box purple">
-                        <svg><use href="#icon-refresh"/></svg>
-                    </div>
-                    <h2>Your Subscriptions</h2>
-                </div>
-                <div class="filters-row" id="filters">
-                    <button class="filter-pill active" data-f="all">All</button>
-                    <button class="filter-pill" data-f="ai">AI Tools</button>
-                    <button class="filter-pill" data-f="creative">Creative</button>
-                    <button class="filter-pill" data-f="productivity">Productivity</button>
-                    <button class="filter-pill" data-f="google">Google/Apple</button>
-                    <button class="filter-pill" data-f="other">Other</button>
-                </div>
+                <span class="subs-title">All Subscriptions</span>
+            </div>
+            <div class="filters" id="filters">
+                <button class="filter-btn active" data-f="all">All</button>
+                <button class="filter-btn" data-f="ai">🤖 AI</button>
+                <button class="filter-btn" data-f="creative">🎨 Creative</button>
+                <button class="filter-btn" data-f="productivity">📋 Productivity</button>
+                <button class="filter-btn" data-f="google">🌐 Google/Apple</button>
+                <button class="filter-btn" data-f="other">📦 Other</button>
             </div>
             <div class="search-row">
-                <input type="text" class="search-box" id="search" placeholder="Search subscriptions...">
-                <button class="sort-btn" onclick="openSort()">
-                    <svg><use href="#icon-sort"/></svg>
-                </button>
+                <input type="text" class="search-input" id="search" placeholder="Search...">
+                <button class="sort-btn" onclick="openSort()">⇅</button>
             </div>
             <div class="sub-list" id="list"></div>
         </div>
@@ -1046,16 +705,12 @@
         <footer>Subscription Tracker</footer>
     </div>
 
-    <button class="fab" onclick="openAdd()">
-        <svg><use href="#icon-plus"/></svg>
-    </button>
+    <button class="fab" onclick="openAdd()">+</button>
 
     <!-- Add/Edit Modal -->
-    <div class="modal-overlay" id="modal">
-        <div class="modal-box">
-            <button class="modal-close" onclick="closeModal()">
-                <svg><use href="#icon-close"/></svg>
-            </button>
+    <div class="modal-bg" id="modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">✕</button>
             <h2 id="modalTitle">Add Subscription</h2>
             <form id="form">
                 <input type="hidden" id="editId">
@@ -1065,17 +720,17 @@
                 </div>
                 <div class="field-row">
                     <div class="field">
-                        <label>Monthly Price</label>
+                        <label>Price/month</label>
                         <input type="number" id="fPrice" step="0.01" required placeholder="9.99">
                     </div>
                     <div class="field">
                         <label>Category</label>
                         <select id="fCat">
-                            <option value="ai">AI Tools</option>
-                            <option value="creative">Creative</option>
-                            <option value="productivity">Productivity</option>
-                            <option value="google">Google/Apple</option>
-                            <option value="other">Other</option>
+                            <option value="ai">🤖 AI</option>
+                            <option value="creative">🎨 Creative</option>
+                            <option value="productivity">📋 Productivity</option>
+                            <option value="google">🌐 Google/Apple</option>
+                            <option value="other">📦 Other</option>
                         </select>
                     </div>
                 </div>
@@ -1093,43 +748,35 @@
     </div>
 
     <!-- Budget Modal -->
-    <div class="modal-overlay" id="budgetModal">
-        <div class="modal-box">
-            <button class="modal-close" onclick="closeBudget()">
-                <svg><use href="#icon-close"/></svg>
-            </button>
-            <h2>Set Monthly Budget</h2>
+    <div class="modal-bg" id="budgetModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeBudget()">✕</button>
+            <h2>Set Budget</h2>
             <form id="budgetForm">
                 <div class="field">
-                    <label>Budget Amount ($)</label>
+                    <label>Monthly Budget ($)</label>
                     <input type="number" id="fBudget" required placeholder="500">
                 </div>
-                <button type="submit" class="save-btn">Save Budget</button>
+                <button type="submit" class="save-btn">Save</button>
             </form>
         </div>
     </div>
 
     <!-- Sort Sheet -->
-    <div class="sheet-overlay" id="sortOverlay" onclick="closeSort()"></div>
-    <div class="sort-sheet" id="sortSheet">
+    <div class="sheet-bg" id="sheetBg" onclick="closeSort()"></div>
+    <div class="sheet" id="sheet">
         <h3>Sort By</h3>
-        <div class="sort-opt" data-s="name">Name (A-Z)</div>
-        <div class="sort-opt" data-s="price-high">Price: High to Low</div>
-        <div class="sort-opt" data-s="price-low">Price: Low to High</div>
-        <div class="sort-opt" data-s="billing">Billing Date</div>
-        <div class="sort-opt" data-s="rating">Rating</div>
+        <div class="sheet-opt" data-s="name">Name</div>
+        <div class="sheet-opt" data-s="price-high">Price ↓</div>
+        <div class="sheet-opt" data-s="price-low">Price ↑</div>
+        <div class="sheet-opt" data-s="billing">Billing Date</div>
+        <div class="sheet-opt" data-s="rating">Rating</div>
     </div>
 
     <div class="toast" id="toast"></div>
 
     <script>
-        const CAT_ICONS = {
-            ai: '#icon-ai',
-            creative: '#icon-creative',
-            productivity: '#icon-productivity',
-            google: '#icon-google',
-            other: '#icon-other'
-        };
+        const ICONS = { ai:'🤖', creative:'🎨', productivity:'📋', google:'🌐', other:'📦' };
 
         const defaults = [
             {id:1,name:'OpenAI ChatGPT',cat:'ai',price:200,note:'Pro',day:12,rating:5,status:'active'},
@@ -1155,13 +802,13 @@
         let catChart, trendChart;
 
         function load(){
-            subs = JSON.parse(localStorage.getItem('subs_v8')) || [...defaults];
-            budget = parseFloat(localStorage.getItem('budget_v8')) || 500;
+            subs = JSON.parse(localStorage.getItem('subs_v9')) || [...defaults];
+            budget = parseFloat(localStorage.getItem('budget_v9')) || 500;
         }
 
         function save(){
-            localStorage.setItem('subs_v8', JSON.stringify(subs));
-            localStorage.setItem('budget_v8', budget);
+            localStorage.setItem('subs_v9', JSON.stringify(subs));
+            localStorage.setItem('budget_v9', budget);
         }
 
         function getStats(){
@@ -1187,53 +834,41 @@
         function renderStats(){
             const st = getStats();
             const rem = budget - st.total;
+            const pct = ((st.total/budget)*100).toFixed(0);
             document.getElementById('stats').innerHTML = `
-                <div class="stat-card">
-                    <div class="icon-box accent"><svg><use href="#icon-wallet"/></svg></div>
-                    <div class="stat-info">
-                        <h3>Monthly</h3>
-                        <div class="value">$${st.total.toFixed(0)}</div>
-                        <div class="change">${st.count} active</div>
-                    </div>
+                <div class="stat-card blue">
+                    <div class="stat-label">Monthly</div>
+                    <div class="stat-value">$${st.total.toFixed(0)}<span class="stat-trend up">↗</span></div>
+                    <div class="stat-sub">${st.count} active subscriptions</div>
                 </div>
-                <div class="stat-card">
-                    <div class="icon-box primary"><svg><use href="#icon-calendar"/></svg></div>
-                    <div class="stat-info">
-                        <h3>Annual</h3>
-                        <div class="value">$${st.annual.toFixed(0)}</div>
-                        <div class="change">projected</div>
-                    </div>
+                <div class="stat-card purple">
+                    <div class="stat-label">Annual</div>
+                    <div class="stat-value">$${st.annual.toFixed(0)}</div>
+                    <div class="stat-sub">projected yearly spend</div>
                 </div>
-                <div class="stat-card">
-                    <div class="icon-box warning"><svg><use href="#icon-target"/></svg></div>
-                    <div class="stat-info">
-                        <h3>Remaining</h3>
-                        <div class="value" style="color:${rem>=0?'var(--success)':'var(--accent)'}">${rem>=0?'':'−'}$${Math.abs(rem).toFixed(0)}</div>
-                        <div class="change ${rem>=0?'positive':''}">${rem>=0?'under budget':'over budget'}</div>
-                    </div>
+                <div class="stat-card ${rem>=0?'mint':'peach'}">
+                    <div class="stat-label">Remaining</div>
+                    <div class="stat-value">${rem>=0?'':'−'}$${Math.abs(rem).toFixed(0)}</div>
+                    <div class="stat-sub">${rem>=0?'under':'over'} budget</div>
                 </div>
-                <div class="stat-card">
-                    <div class="icon-box purple"><svg><use href="#icon-scissors"/></svg></div>
-                    <div class="stat-info">
-                        <h3>Saved</h3>
-                        <div class="value" style="color:var(--success)">$${st.savedTotal.toFixed(0)}</div>
-                        <div class="change positive">from cuts</div>
-                    </div>
+                <div class="stat-card mint">
+                    <div class="stat-label">Saved</div>
+                    <div class="stat-value">$${st.savedTotal.toFixed(0)}</div>
+                    <div class="stat-sub">from cancellations</div>
                 </div>
             `;
-            const pct = Math.min((st.total/budget)*100,100);
-            document.getElementById('progFill').style.width = pct+'%';
-            document.getElementById('progFill').className = 'progress-bar'+(st.total>budget?' over':'');
-            document.getElementById('progLabel').textContent = `$${st.total.toFixed(0)} / $${budget}`;
+            document.getElementById('budgetText').textContent = `$${st.total.toFixed(0)} / $${budget}`;
+            document.getElementById('progFill').style.width = Math.min(pct,100)+'%';
+            document.getElementById('progFill').className = 'progress-bar-fill'+(st.total>budget?' over':'');
         }
 
         function renderCancel(){
             const list = subs.filter(s=>s.status==='to-cancel');
-            const card = document.getElementById('cancelCard');
-            if(!list.length){ card.style.display='none'; return; }
-            card.style.display='block';
+            const sec = document.getElementById('cancelSection');
+            if(!list.length){ sec.style.display='none'; return; }
+            sec.style.display='block';
             const total = list.reduce((a,s)=>a+s.price,0);
-            document.getElementById('cancelChips').innerHTML = list.map(s=>`<div class="cancel-chip"><span>${s.name}</span><span class="price">$${s.price.toFixed(0)}</span></div>`).join('');
+            document.getElementById('cancelItems').innerHTML = list.map(s=>`<span class="cancel-tag">${ICONS[s.cat]} ${s.name} <span class="price">$${s.price.toFixed(0)}</span></span>`).join('');
             document.getElementById('saveMo').textContent = `$${total.toFixed(0)}`;
             document.getElementById('saveYr').textContent = `$${(total*12).toFixed(0)}`;
         }
@@ -1262,34 +897,27 @@
                 }
             });
             const el = document.getElementById('list');
-            if(!list.length){ 
-                el.innerHTML='<div class="empty"><svg><use href="#icon-empty"/></svg><p>No subscriptions found</p></div>'; 
-                return; 
-            }
+            if(!list.length){ el.innerHTML='<div class="empty">No subscriptions found</div>'; return; }
             el.innerHTML = list.map(s=>{
                 const days = getDays(s.day);
                 const due = days!==null ? `<span class="${days<=3?'due':''}">Due in ${days}d</span>` : '';
-                const stars = [1,2,3,4,5].map(i=>`<span class="${i<=(s.rating||0)?'on':''}" onclick="rate(${s.id},${i})"><svg><use href="${i<=(s.rating||0)?'#icon-star':'#icon-star-empty'}"/></svg></span>`).join('');
+                const stars = [1,2,3,4,5].map(i=>`<span class="${i<=(s.rating||0)?'on':''}" onclick="rate(${s.id},${i})">★</span>`).join('');
                 return `
                 <div class="sub-item${s.status==='to-cancel'?' marked':''}">
-                    <div class="sub-row">
-                        <div class="sub-icon cat-${s.cat}"><svg><use href="${CAT_ICONS[s.cat]}"/></svg></div>
-                        <div class="sub-details">
-                            <h4>${s.name}</h4>
-                            <span>${s.note||''} ${due}</span>
-                        </div>
-                        <div class="sub-amount">
-                            <div class="price">$${s.price.toFixed(0)}</div>
-                            <div class="period">/mo</div>
-                        </div>
+                    <div class="sub-icon ${s.cat}">${ICONS[s.cat]}</div>
+                    <div class="sub-info">
+                        <div class="sub-name">${s.name}</div>
+                        <div class="sub-meta">${s.note||''} ${due}</div>
                     </div>
-                    <div class="sub-actions-row">
-                        <div class="stars">${stars}</div>
-                        <div class="action-btns">
-                            <button class="btn-edit" onclick="edit(${s.id})"><svg><use href="#icon-edit"/></svg></button>
-                            ${s.status==='active'?`<button class="btn-warn" onclick="mark(${s.id})"><svg><use href="#icon-warn"/></svg></button>`:`<button class="btn-ok" onclick="restore(${s.id})"><svg><use href="#icon-check"/></svg></button>`}
-                            <button class="btn-del" onclick="del(${s.id})"><svg><use href="#icon-trash"/></svg></button>
-                        </div>
+                    <div class="sub-rating">${stars}</div>
+                    <div class="sub-price">
+                        <div class="amount">$${s.price.toFixed(0)}</div>
+                        <div class="period">/mo</div>
+                    </div>
+                    <div class="sub-actions">
+                        <button onclick="edit(${s.id})">✏️</button>
+                        ${s.status==='active'?`<button onclick="mark(${s.id})">⚠️</button>`:`<button onclick="restore(${s.id})">✅</button>`}
+                        <button onclick="del(${s.id})">🗑️</button>
                     </div>
                 </div>`;
             }).join('');
@@ -1303,18 +931,18 @@
                 type:'doughnut',
                 data:{
                     labels:['AI','Creative','Productivity','Google','Other'],
-                    datasets:[{data:[st.cats.ai,st.cats.creative,st.cats.productivity,st.cats.google,st.cats.other],backgroundColor:['#553C9A','#D97756','#2D5A7B','#2F855A','#B7791F'],borderWidth:0}]
+                    datasets:[{data:[st.cats.ai,st.cats.creative,st.cats.productivity,st.cats.google,st.cats.other],backgroundColor:['#7C4DFF','#EC407A','#1E88E5','#43A047','#FB8C00'],borderWidth:0}]
                 },
-                options:{responsive:true,plugins:{legend:{position:'bottom',labels:{color:'#4A5568',font:{size:10},padding:8}}}}
+                options:{responsive:true,plugins:{legend:{position:'bottom',labels:{color:'#6B7280',font:{size:10},padding:8}}}}
             });
             const base = st.total;
             trendChart = new Chart(document.getElementById('trendChart'),{
                 type:'line',
                 data:{
                     labels:['Sep','Oct','Nov','Dec','Jan','Feb'],
-                    datasets:[{data:[base*.92,base*.95,base*1.02,base*.98,base*1.01,base],borderColor:'#2D5A7B',backgroundColor:'rgba(45,90,123,0.08)',fill:true,tension:0.4,pointRadius:3,pointBackgroundColor:'#2D5A7B'}]
+                    datasets:[{data:[base*.92,base*.95,base*1.02,base*.98,base*1.01,base],borderColor:'#7C4DFF',backgroundColor:'rgba(124,77,255,0.08)',fill:true,tension:0.4,pointRadius:3,pointBackgroundColor:'#7C4DFF'}]
                 },
-                options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{display:false},x:{grid:{display:false},ticks:{color:'#718096',font:{size:10}}}}}
+                options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{display:false},x:{grid:{display:false},ticks:{color:'#9CA3AF',font:{size:10}}}}}
             });
         }
 
@@ -1348,14 +976,14 @@
         function closeBudget(){ document.getElementById('budgetModal').classList.remove('open'); }
 
         function openSort(){
-            document.getElementById('sortOverlay').classList.add('open');
-            document.getElementById('sortSheet').classList.add('open');
-            document.querySelectorAll('.sort-opt').forEach(o=>o.classList.toggle('active',o.dataset.s===sort));
+            document.getElementById('sheetBg').classList.add('open');
+            document.getElementById('sheet').classList.add('open');
+            document.querySelectorAll('.sheet-opt').forEach(o=>o.classList.toggle('active',o.dataset.s===sort));
         }
 
         function closeSort(){
-            document.getElementById('sortOverlay').classList.remove('open');
-            document.getElementById('sortSheet').classList.remove('open');
+            document.getElementById('sheetBg').classList.remove('open');
+            document.getElementById('sheet').classList.remove('open');
         }
 
         document.getElementById('form').onsubmit = function(e){
@@ -1388,13 +1016,13 @@
             save(); renderAll(); closeBudget(); toast('Budget saved');
         };
 
-        document.querySelectorAll('.sort-opt').forEach(o=>{
+        document.querySelectorAll('.sheet-opt').forEach(o=>{
             o.onclick = ()=>{ sort=o.dataset.s; renderList(); closeSort(); };
         });
 
-        document.querySelectorAll('.filter-pill').forEach(b=>{
+        document.querySelectorAll('.filter-btn').forEach(b=>{
             b.onclick = ()=>{
-                document.querySelectorAll('.filter-pill').forEach(x=>x.classList.remove('active'));
+                document.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));
                 b.classList.add('active');
                 filter = b.dataset.f;
                 renderList();
@@ -1404,9 +1032,9 @@
         document.getElementById('search').oninput = renderList;
 
         function rate(id,r){ const s=subs.find(x=>x.id===id); if(s){s.rating=r; save(); renderList();} }
-        function mark(id){ const s=subs.find(x=>x.id===id); if(s){s.status='to-cancel'; save(); renderAll(); toast('Marked for cancellation');} }
+        function mark(id){ const s=subs.find(x=>x.id===id); if(s){s.status='to-cancel'; save(); renderAll(); toast('Marked');} }
         function restore(id){ const s=subs.find(x=>x.id===id); if(s){s.status='active'; save(); renderAll(); toast('Restored');} }
-        function del(id){ if(confirm('Delete this subscription?')){ subs=subs.filter(s=>s.id!==id); save(); renderAll(); toast('Deleted'); } }
+        function del(id){ if(confirm('Delete?')){ subs=subs.filter(s=>s.id!==id); save(); renderAll(); toast('Deleted'); } }
 
         function exportCSV(){
             const rows=[['Name','Category','Price','Day','Rating','Status','Note']];
